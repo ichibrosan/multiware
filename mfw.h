@@ -8,6 +8,8 @@
 
 #include <string.h>
 #include <time.h>
+
+// Emulate "import std;"
 #include "std.h"
 
 #define MFW_DELETE_LOGS_ON_MAIN_STARTUP
