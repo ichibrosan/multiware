@@ -8,9 +8,6 @@
 
 #include <string.h>
 #include <time.h>
-#include <cassert>
-#include <iostream>
-#include <ctime>
 
 #define MFW_DELETE_LOGS_ON_MAIN_STARTUP
 #define MFW_LOG_PARMS_ON_MFW_INSTANTIATION
