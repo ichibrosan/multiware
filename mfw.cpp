@@ -61,10 +61,13 @@ mfw::mfw(const char *pszFunction,
     // Allocate a  C string buffer used to construct a log entry
     char szLogData[BUFSIZ];
 
+    log("**********************************************************"
+      "********************************************************************");
+
     // Format the log entry using caller's parameters
     sprintf(szLogData,
             "MFW instance created by "
-            "file=%s:%d function=%s prettyfunction=%s\n",
+            "file=%s:%d function=%s prettyfunction=%s",
             m_stdstrFile.c_str(),
             m_iLine,
             m_stdstrFunction.c_str(),
@@ -72,8 +75,17 @@ mfw::mfw(const char *pszFunction,
     // Call "log" member function to write log entry
     log((const char *)szLogData);
 #endif // MFW_LOG_PRETTY_FUNCTION_ON_MFW_INSTANTIATION
+
+
 }
 
+/**************************************
+ * Log the current location and context
+ * @param pszFunction
+ * @param pszPrettyFunction
+ * @param pszFile
+ * @param iLine
+ **************************************/
 void mfw::where(const char *pszFunction,
            const char *pszPrettyFunction,
            const char *pszFile,
@@ -212,18 +224,15 @@ void mfw::print(std::string stdstrName,std::string stdstrValue)
     char szBuffer[BUFSIZ];
     sprintf(szBuffer,"std::string Variable %s is %s",
             stdstrName.c_str(),stdstrValue.c_str());
-    mfw::log((const char *)szBuffer);
+    log((const char *)szBuffer);
 }
-
-
-
-
 
 
 /********************************************************************
  * This is the destructor for the multiware framework class (unused)
  *******************************************************************/
 mfw::~mfw() {
+
 }
 
 ///////////////////

@@ -5,22 +5,11 @@
 
 #include "mfw.h"
 
-void tempfunc()
+/**
+ * Demonstrate an overloaded function
+ */
+void demoPrint()
 {
-    MFW;
-    std::string myfunc = __FUNCTION__;
-    pMFW->print("function is ",myfunc);
-    pMFW->print("line number is ",__LINE__);
-}
-
-/*********************************************************************
- * Main Entry Point of MultiWare application
- * @param argc Number of formal parameters
- * @param argv Pointer to array of pointers to arguments
- * @return Returns in integer status code EXIT_SUCCESS or EXIT_FAILURE
- ********************************************************************/
-int main(int argc,char **argv) {
-
     // Instantiate an instance of the MultiWare Framework for this function
     MFW;
     WHERE;
@@ -39,7 +28,21 @@ int main(int argc,char **argv) {
     pMFW->print("iInteger",iInteger);
     pMFW->print("stdstrHello",stdstrHello);
 
-    tempfunc();
+}
+
+/*********************************************************************
+ * Main Entry Point of MultiWare application
+ * @param argc Number of formal parameters
+ * @param argv Pointer to array of pointers to arguments
+ * @return Returns in integer status code EXIT_SUCCESS or EXIT_FAILURE
+ ********************************************************************/
+int main(int argc,char **argv) {
+
+    // Instantiate an instance of the MultiWare Framework for this function
+    MFW;
+    WHERE;
+
+    demoPrint();
 
     return EXIT_SUCCESS;
 }
