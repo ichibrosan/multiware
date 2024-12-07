@@ -7,7 +7,10 @@
 
 void tempfunc()
 {
-
+    MFW;
+    std::string myfunc = __FUNCTION__;
+    pMFW->print("function is ",myfunc);
+    pMFW->print("line number is ",__LINE__);
 }
 
 /*********************************************************************
@@ -35,6 +38,8 @@ int main(int argc,char **argv) {
     pMFW->print("dPi",dPi);
     pMFW->print("iInteger",iInteger);
     pMFW->print("stdstrHello",stdstrHello);
+
+    tempfunc();
 
     return EXIT_SUCCESS;
 }

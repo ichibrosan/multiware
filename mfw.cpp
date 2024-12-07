@@ -167,7 +167,7 @@ void mfw::print(std::string stdstrName,bool bValue) {
                 stdstrName.c_str());
     }
     else {
-        sprintf(szBuffer, "Variable %s is true",
+        sprintf(szBuffer, "Boolean Variable %s is false",
                 stdstrName.c_str());
     }
 
@@ -180,11 +180,11 @@ void mfw::print(std::string stdstrName,bool bValue) {
  * @param stdstrName
  * @param dValue
  */
-void mfw::print(std::string stdstrName,double iValue)
+void mfw::print(std::string stdstrName,double dValue)
 {
     char szBuffer[BUFSIZ];
     sprintf(szBuffer,"Double Variable %s is %g",
-            stdstrName.c_str(),iValue);
+            stdstrName.c_str(),dValue);
     mfw::log((const char *)szBuffer);
 }
 

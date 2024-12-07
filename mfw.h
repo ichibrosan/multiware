@@ -12,7 +12,7 @@
 // Emulate "import std;"
 #include "std.h"
 
-#define MFW_DELETE_LOGS_ON_MAIN_STARTUP
+//#define MFW_DELETE_LOGS_ON_MAIN_STARTUP
 #define MFW_LOG_PARMS_ON_MFW_INSTANTIATION
 #define MFW_LOG_ENTRY_TO_FUNCTION
 
@@ -49,10 +49,12 @@ public:
     std::string get_home();
     std::string get_date_and_time();
     void log(const char *);
+
     void print(std::string,bool);
     void print(std::string,double);
     void print(std::string,int);
     void print(std::string,std::string);
+
     void where(const char *,const char *,const char *,int);
     ~mfw();
 };
