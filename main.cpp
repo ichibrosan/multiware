@@ -21,6 +21,21 @@ int main(int argc,char **argv) {
     // Instantiate an instance of the MultiWare Framework for this function
     MFW;
     WHERE;
+
+    // Examples of Overloaded Function Calls to print logging function
+
+    // Setup sample data of various types
+    bool bBoolean = true;
+    double dPi = 3.1415926535;
+    int iInteger = 42;
+    std::string stdstrHello = "Hello";
+
+    // These print calls vary only in the type of the parameter
+    pMFW->print("bBoolean",bBoolean);
+    pMFW->print("dPi",dPi);
+    pMFW->print("iInteger",iInteger);
+    pMFW->print("stdstrHello",stdstrHello);
+
     return EXIT_SUCCESS;
 }
 

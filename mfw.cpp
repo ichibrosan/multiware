@@ -155,6 +155,71 @@ std::string mfw::get_date_and_time()
     return buffer;
 }
 
+/**
+ * Overloaded print function for bool
+ * @param stdstrName
+ * @param bValue
+ */
+void mfw::print(std::string stdstrName,bool bValue) {
+    char szBuffer[BUFSIZ];
+    if (bValue) {
+        sprintf(szBuffer, "Boolean Variable %s is true",
+                stdstrName.c_str());
+    }
+    else {
+        sprintf(szBuffer, "Variable %s is true",
+                stdstrName.c_str());
+    }
+
+    mfw::log((const char *)szBuffer);
+}
+
+
+/**
+ * Overloaded print function for doubles
+ * @param stdstrName
+ * @param dValue
+ */
+void mfw::print(std::string stdstrName,double iValue)
+{
+    char szBuffer[BUFSIZ];
+    sprintf(szBuffer,"Double Variable %s is %g",
+            stdstrName.c_str(),iValue);
+    mfw::log((const char *)szBuffer);
+}
+
+
+/**
+ * Overloaded print function for integers
+ * @param stdstrName
+ * @param stdstrValue
+ */
+void mfw::print(std::string stdstrName,int iValue)
+{
+    char szBuffer[BUFSIZ];
+    sprintf(szBuffer,"Integer Variable %s is %d",
+            stdstrName.c_str(),iValue);
+    mfw::log((const char *)szBuffer);
+}
+
+/**
+ * Overloaded print function for std::strings
+ * @param stdstrName
+ * @param stdstrValue
+ */
+void mfw::print(std::string stdstrName,std::string stdstrValue)
+{
+    char szBuffer[BUFSIZ];
+    sprintf(szBuffer,"std::string Variable %s is %s",
+            stdstrName.c_str(),stdstrValue.c_str());
+    mfw::log((const char *)szBuffer);
+}
+
+
+
+
+
+
 /********************************************************************
  * This is the destructor for the multiware framework class (unused)
  *******************************************************************/

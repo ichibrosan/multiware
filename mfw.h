@@ -44,13 +44,16 @@ class mfw {
     std::string m_stdstrHomeFQFS;       // getenv("HOME");
 public:
     mfw(const char *,const char *,const char *,int);
-    void where(const char *,const char *,const char *,int);
     // Member Data Getters
     std::string get_file();
     std::string get_home();
-
     std::string get_date_and_time();
     void log(const char *);
+    void print(std::string,bool);
+    void print(std::string,double);
+    void print(std::string,int);
+    void print(std::string,std::string);
+    void where(const char *,const char *,const char *,int);
     ~mfw();
 };
 
