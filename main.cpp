@@ -33,6 +33,9 @@ void demoPrint()
 
 }
 
+
+shared * g_pShared;
+
 /*********************************************************************
  * Main Entry Point of MultiWare application
  * @param argc Number of formal parameters
@@ -40,10 +43,11 @@ void demoPrint()
  * @return Returns in integer status code EXIT_SUCCESS or EXIT_FAILURE
  ********************************************************************/
 int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
-
-    // Instantiate an instance of the MultiWare Framework for this function
+     // Instantiate an instance of the MultiWare Framework for this function
     MFW
     WHERE
+    g_pShared = new shared();
+    g_pShared->dump_to_log();
 
 //    std::cout << "LOGNAME  is " << pMFW->get_logname() << std::endl;
 //    std::cout << "PWD      is " << pMFW->get_pwd()     << std::endl;

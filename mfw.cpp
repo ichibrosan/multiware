@@ -252,7 +252,9 @@ void mfw::print(const std::string& stdstrName,const std::string& stdstrValue)
 /********************************************************************
  * This is the destructor for the multiware framework class (unused)
  *******************************************************************/
-mfw::~mfw() = default;
+mfw::~mfw() {
+    delete m_pShared;
+}
 
 ///////////////////
 // eof - mfw.cpp //

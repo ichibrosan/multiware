@@ -2,19 +2,26 @@
 // /home/doug/CLionProjects/multiware/mfw.h 2024/12/03 dwg - created //
 // Copyright (c) 2024 Douglas Wade Goodall. All Rights Reserved.     //
 ///////////////////////////////////////////////////////////////////////
+// 2024/12/08 05:46 dwg - added VPA TCP/UDP Assigned Numbers         //
+///////////////////////////////////////////////////////////////////////
 
 #ifndef MULTIWARE_MFW_H
 #define MULTIWARE_MFW_H
 
-//#include <string.h>
-//#include <time.h>
-
 // Emulate "import std;"
 #include "std.h"
+#include "shared.h"
 
 #define MFW_DELETE_LOGS_ON_MAIN_STARTUP
 #define MFW_LOG_PARMS_ON_MFW_INSTANTIATION
 #define MFW_LOG_ENTRY_TO_FUNCTION
+
+/*******************************************************************
+ * From https://www.iana.org/assignments/service-names-port-numbers/
+ *      service-names-port-numbers.xml
+ *******************************************************************/
+#define VPA_PORT      5164
+#define VPA_DISC_PORT 5164
 
 /*****************************************************************
  * This macro is used on entry to a function to create a framework
@@ -66,6 +73,9 @@ public:
                const char *,
                [[maybe_unused]] int);
     ~mfw();
+
+    shared * m_pShared;
+
 };
 
 

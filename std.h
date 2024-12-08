@@ -12,6 +12,11 @@
 #ifndef MULTIWARE_STD_H
 #define MULTIWARE_STD_H
 
+#include <errno.h>
+#include <sys/shm.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
 #include <cassert>
 #include <iostream>
 #include <cstring>
