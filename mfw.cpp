@@ -74,7 +74,7 @@ mfw::mfw(const char *pszFunction,
             m_stdstrPrettyFunction.c_str());
     // Call "log" member function to write log entry
     log((const char *)szLogData);
-#endif // MFW_LOG_PRETTY_FUNCTION_ON_MFW_INSTANTIATION
+#endif // MFW_LOG_PARMS_ON_MFW_INSTANTIATION
 
 
 }
@@ -87,9 +87,9 @@ mfw::mfw(const char *pszFunction,
  * @param iLine
  **************************************/
 void mfw::where(const char *pszFunction,
-           const char *pszPrettyFunction,
+                [[maybe_unused]] const char *pszPrettyFunction,
            const char *pszFile,
-           int iLine)
+                [[maybe_unused]] int iLine)
 {
 #ifdef MFW_LOG_ENTRY_TO_FUNCTION
 // Allocate a  C string buffer used to construct a log entry
@@ -110,7 +110,7 @@ log((const char *)szLogData);
  * Get the filename of the caller's source code
  * @return Return the caller source code FQFS as std::string
  **********************************************************/
-std::string mfw::get_file()
+[[maybe_unused]] std::string mfw::get_file()
 {
     // Return the caller's __FILE__ data from private member data
     return m_stdstrFile;
@@ -126,6 +126,27 @@ std::string mfw::get_home()
     return m_stdstrHomeFQFS = getenv("HOME");
 }
 
+/**************************************************************************
+ * Get the LOGNAME environment variable of the executing machine
+ * @return
+ *************************************************************************/
+[[maybe_unused]] std::string mfw::get_logname()
+{
+    // Save and return the contents of the "LOGNAME" environment variable
+    return m_stdstrLogname = getenv("LOGNAME");
+}
+
+/**************************************************************************
+ * Get the PWD of the executing program
+ * @return
+ *************************************************************************/
+[[maybe_unused]] std::string mfw::get_pwd()
+{
+    // Save and return the contents of the "PWD" environment variable
+    return m_stdstrPwd = getenv("PWD");
+}
+
+
 /****************************************************************************
  * Log a message string in calling function's log file
  * @param pszData
@@ -135,10 +156,10 @@ void mfw::log(const char * pszData)
     // Open the function's log file for appending
     FILE * fd = fopen(m_stdstrLogFQFS.c_str(),"a");
 
-    // Assure file opened successfully and returned valif FILE * pointer
+    // Assure file opened successfully and returned valid FILE * pointer
     assert(fd != nullptr);
 
-    // Write the log entry into the function"s log file
+    // Write the log entry into the function's log file
     fprintf(fd,"%s %s\n",get_date_and_time().c_str(),pszData);
 
     // Close the log file
@@ -172,7 +193,7 @@ std::string mfw::get_date_and_time()
  * @param stdstrName
  * @param bValue
  */
-void mfw::print(std::string stdstrName,bool bValue) {
+[[maybe_unused]] void mfw::print(const std::string& stdstrName,bool bValue) {
     char szBuffer[BUFSIZ];
     if (bValue) {
         sprintf(szBuffer, "Boolean Variable %s is true",
@@ -192,7 +213,7 @@ void mfw::print(std::string stdstrName,bool bValue) {
  * @param stdstrName
  * @param dValue
  */
-void mfw::print(std::string stdstrName,double dValue)
+void mfw::print(const std::string& stdstrName,double dValue)
 {
     char szBuffer[BUFSIZ];
     sprintf(szBuffer,"Double Variable %s is %g",
@@ -206,7 +227,7 @@ void mfw::print(std::string stdstrName,double dValue)
  * @param stdstrName
  * @param stdstrValue
  */
-void mfw::print(std::string stdstrName,int iValue)
+void mfw::print(const std::string& stdstrName,int iValue)
 {
     char szBuffer[BUFSIZ];
     sprintf(szBuffer,"Integer Variable %s is %d",
@@ -219,7 +240,7 @@ void mfw::print(std::string stdstrName,int iValue)
  * @param stdstrName
  * @param stdstrValue
  */
-void mfw::print(std::string stdstrName,std::string stdstrValue)
+void mfw::print(const std::string& stdstrName,const std::string& stdstrValue)
 {
     char szBuffer[BUFSIZ];
     sprintf(szBuffer,"std::string Variable %s is %s",
@@ -231,9 +252,7 @@ void mfw::print(std::string stdstrName,std::string stdstrValue)
 /********************************************************************
  * This is the destructor for the multiware framework class (unused)
  *******************************************************************/
-mfw::~mfw() {
-
-}
+mfw::~mfw() = default;
 
 ///////////////////
 // eof - mfw.cpp //

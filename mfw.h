@@ -6,8 +6,8 @@
 #ifndef MULTIWARE_MFW_H
 #define MULTIWARE_MFW_H
 
-#include <string.h>
-#include <time.h>
+//#include <string.h>
+//#include <time.h>
 
 // Emulate "import std;"
 #include "std.h"
@@ -42,20 +42,29 @@ class mfw {
     int         m_iLine;                // __LINE__
     std::string m_stdstrLogFQFS;
     std::string m_stdstrHomeFQFS;       // getenv("HOME");
+    std::string m_stdstrLogname;        // getenv("LOGNAME");
+    std::string m_stdstrPwd;            // getenv("PWD");
 public:
     mfw(const char *,const char *,const char *,int);
     // Member Data Getters
-    std::string get_file();
+    static std::string get_date_and_time();
+    [[maybe_unused]] std::string get_file();
     std::string get_home();
-    std::string get_date_and_time();
+
+    [[maybe_unused]] std::string get_logname();
+    [[maybe_unused]] std::string get_pwd();
+
     void log(const char *);
 
-    void print(std::string,bool);
-    void print(std::string,double);
-    void print(std::string,int);
-    void print(std::string,std::string);
+    [[maybe_unused]] void print(const std::string&,bool);
+    void print(const std::string&,double);
+    void print(const std::string&,int);
+    void print(const std::string&,const std::string&);
 
-    void where(const char *,const char *,const char *,int);
+    void where(const char *,
+               [[maybe_unused]] const char *,
+               const char *,
+               [[maybe_unused]] int);
     ~mfw();
 };
 

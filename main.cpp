@@ -11,8 +11,11 @@
 void demoPrint()
 {
     // Instantiate an instance of the MultiWare Framework for this function
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "EmptyDeclOrStmt"
     MFW;
-    WHERE;
+#pragma clang diagnostic pop
+    WHERE
 
     // Examples of Overloaded Function Calls to print logging function
 
@@ -36,11 +39,14 @@ void demoPrint()
  * @param argv Pointer to array of pointers to arguments
  * @return Returns in integer status code EXIT_SUCCESS or EXIT_FAILURE
  ********************************************************************/
-int main(int argc,char **argv) {
+int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
 
     // Instantiate an instance of the MultiWare Framework for this function
-    MFW;
-    WHERE;
+    MFW
+    WHERE
+
+//    std::cout << "LOGNAME  is " << pMFW->get_logname() << std::endl;
+//    std::cout << "PWD      is " << pMFW->get_pwd()     << std::endl;
 
     demoPrint();
 

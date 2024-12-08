@@ -14,6 +14,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <cstring>
 #include <ctime>
 
 #endif //MULTIWARE_STD_H
