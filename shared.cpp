@@ -20,33 +20,52 @@
  ***********************************************************************/
 shared::shared()
 {
-    printf("shard ctor\n");
     MFW
+
+    // Set key to hex version of my VPA port number (recognizable)
     key_t key = 0x5164;
+
+    // Set size to the size of my shared data structure (member data)
     size_t size=sizeof(MFW_SHMEM_T);
+
+    // Set shmFlg with read/write permissions so I can access
+    // the shared region once created. See shared.h
     int shmflg = OBJ_PERMS;
 
+    // Log the parameters I am going to use to open the shared segment
     char szBuffer[BUFSIZ];
     sprintf(szBuffer,
             "shmget(key=0x%x,size=%ld,shmflg=0x%x);",
             key,size,shmflg);
     pMFW->log(szBuffer);
+
     m_smsi  = shmget(key,size,shmflg);
+    // Test to see if we open the segment successfully
     if(-1 == m_smsi) {
         //decode_shmget_errno(errno);
         if(ENOENT == errno) {
+            // ENOENT means no segment exists and create not specified
             pMFW->log("Creating shared memory segment");
             shmflg = IPC_CREAT | OBJ_PERMS;
+
+            // Log the parameterrs I am using to create the segment
             sprintf(szBuffer,
                     "shmget(key=0x%x,size=%ld,shmflg=0x%x);",
                     key,size,shmflg);
             pMFW->log(szBuffer);
+
+            // Create the memory segment and save the identifier
             m_smsi  = shmget(key,size,shmflg);
+
             if(-1==m_smsi) {
                 decode_shmget_errno(errno);
+                std::cout << "ERROR: unable to open shared segment"
+                          << std::endl;
             }
         }
     }
+
+    // Prepare to attach shared segment using shmat
     shmflg = 0;
     sprintf(szBuffer,
             "shmat(smsi=0x%x,shmaddr=%p,shmflg=0x%x);",
@@ -57,10 +76,9 @@ shared::shared()
         printf("Error calling shmat\n");
         decode_shmat_errno(errno);
     }
-    else
-    {
-        printf("Shared segment attached\n");
-    }
+
+    m_pShMem->iSignature = UNIVERSAL_ANSWER;
+    // end of shared ctor
 }
 
 /**

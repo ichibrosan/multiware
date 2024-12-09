@@ -1,11 +1,18 @@
-//
-// Created by doug on 12/8/24.
-//
+/////////////////////////////////////////////////////////////////
+// daphne.goodall.com/home/doug/CLionProjects/multiware/shared.h
+// Copyright (c) 2024 Douglas Wade Goodall. All Rights Reserved.
+/////////////////////////////////////////////////////////////////
 
 #ifndef MULTIWARE_SHARED_H
 #define MULTIWARE_SHARED_H
 
+// Used for shared segment signature
+#define UNIVERSAL_ANSWER 42
 
+/************************************************************
+ * A class to provide function and data for handling a shared
+ * memory segment.
+ ***********************************************************/
 class shared {
     int m_smsi;     // shared memory segment identifier
     struct  MFW_SHMEM_T {
@@ -26,5 +33,8 @@ public:
     ~shared();
 };
 
-
 #endif //MULTIWARE_SHARED_H
+
+////////////////////
+// eof - shared/h //
+////////////////////
