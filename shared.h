@@ -7,6 +7,7 @@
 #define MULTIWARE_SHARED_H
 
 // Used for shared segment signature
+// See Douglas Adam, Hitchhiker's Guide et al.
 #define UNIVERSAL_ANSWER 42
 
 /************************************************************
