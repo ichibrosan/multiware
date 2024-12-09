@@ -25,11 +25,15 @@ set(CMAKE_CXX clang++)
 add_library(mfw STATIC mfw.h mfw.cpp
         std.h
         shared.cpp
-        shared.h)
+        shared.h
+        html.cpp
+        html.h)
 add_executable(multiware main.cpp
         std.h
         shared.cpp
-        shared.h)
+        shared.h
+        html.cpp
+        html.h)
 
 target_link_libraries(multiware mfw)
 

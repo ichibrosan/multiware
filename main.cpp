@@ -49,6 +49,15 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
     g_pShared = new shared();
     g_pShared->dump_to_log();
 
+    html *pHtml = new html((char *)"/home/doug/public_html/index.html");
+    pHtml->open_head();
+    pHtml->title((char *)"Hello Test");
+    pHtml->close_head();
+    pHtml->open_body();
+    pHtml->print((char *)"      Hello World!!");
+    pHtml->close_body();
+    delete pHtml;
+
 //    std::cout << "LOGNAME  is " << pMFW->get_logname() << std::endl;
 //    std::cout << "PWD      is " << pMFW->get_pwd()     << std::endl;
 

@@ -11,6 +11,7 @@
 // Emulate "import std;"
 #include "std.h"
 #include "shared.h"
+#include "html.h"
 
 #define MFW_DELETE_LOGS_ON_MAIN_STARTUP
 #define MFW_LOG_PARMS_ON_MFW_INSTANTIATION
