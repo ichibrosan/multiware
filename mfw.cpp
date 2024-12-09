@@ -16,6 +16,9 @@ mfw::mfw(const char *pszFunction,
          const char *pszFile,
          int        iLine) {
 
+    m_pMeta = new metainfo();
+
+
     // Save caller's parameters in class private member data
     m_stdstrFunction        = pszFunction;
     m_stdstrPrettyFunction  = pszPrettyFunction;

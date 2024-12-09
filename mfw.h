@@ -10,8 +10,11 @@
 
 // Emulate "import std;"
 #include "std.h"
+// Multiware FrameWork class headers
 #include "shared.h"
 #include "html.h"
+#include "metainfo.h"
+
 
 #define MFW_DELETE_LOGS_ON_MAIN_STARTUP
 #define MFW_LOG_PARMS_ON_MFW_INSTANTIATION
@@ -75,8 +78,8 @@ public:
                [[maybe_unused]] int);
     ~mfw();
 
-    shared * m_pShared;
-
+    shared   * m_pShared;
+    metainfo * m_pMeta;
 };
 
 

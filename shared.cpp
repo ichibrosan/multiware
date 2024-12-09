@@ -28,7 +28,7 @@ shared::shared()
     // Set size to the size of my shared data structure (member data)
     size_t size=sizeof(MFW_SHMEM_T);
 
-    // Set shmFlg with read/write permissions so I can access
+    // Set shmFlg with read/write permissions, so I can access
     // the shared region once created. See shared.h
     int shmflg = OBJ_PERMS;
 
@@ -48,7 +48,7 @@ shared::shared()
             pMFW->log("Creating shared memory segment");
             shmflg = IPC_CREAT | OBJ_PERMS;
 
-            // Log the parameterrs I am using to create the segment
+            // Log the parameters I am using to create the segment
             sprintf(szBuffer,
                     "shmget(key=0x%x,size=%ld,shmflg=0x%x);",
                     key,size,shmflg);
@@ -81,7 +81,8 @@ shared::shared()
     // end of shared ctor
 }
 
-/**
+/**  Note: Defined in shared.h
+ *
  *   struct  MFW_SHMEM_T {
  *      int     iSignature;
  *      char    szIdent[256];
@@ -89,6 +90,7 @@ shared::shared()
  *      int     iIntegers[256];
  *      double  dDoubles[256];
  *   } * m_pShMem;
+ *
  */
 
 /***************************************

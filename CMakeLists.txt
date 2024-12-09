@@ -22,18 +22,15 @@ set(CMAKE_CXX clang++)
 # I will still have to use explicit includes
 ############################################
 
-add_library(mfw STATIC mfw.h mfw.cpp
-        std.h
-        shared.cpp
-        shared.h
-        html.cpp
-        html.h)
+add_library(mfw STATIC
+        mfw.cpp       mfw.h
+        shared.cpp    shared.h
+        html.cpp      html.h
+        metainfo.cpp  metainfo.h
+)
 add_executable(multiware main.cpp
         std.h
-        shared.cpp
-        shared.h
-        html.cpp
-        html.h)
+)
 
 target_link_libraries(multiware mfw)
 

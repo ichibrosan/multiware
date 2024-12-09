@@ -15,6 +15,12 @@
  ***********************************************************/
 class shared {
     int m_smsi;     // shared memory segment identifier
+
+    /**
+     * If you change the MFW_SHMEM_T structure, you must reboot
+     * Linux before running the program again. This gets rid of
+     * the existing shared segment with old schema/length.
+     */
     struct  MFW_SHMEM_T {
         int     iSignature;
         [[maybe_unused]] char    szIdent[256];
