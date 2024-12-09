@@ -12,6 +12,7 @@
 // #define DEMO_OVERLOADED_FUNCTION
 // #define DISPLAY_METAINFO
 // #define DUMP_SHARED_CONTENTS
+#define RANDOMIZE_SHARED_REGION
 
 /**
  * Demonstrate an overloaded function
@@ -101,6 +102,35 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
     // See macro definition above
     demoPrint();
 #endif // DEMO_OVERLOADED_FUNCTION
+
+//    char temp[BUFSIZ];
+//    sleep(120);
+
+#ifdef RANDOMIZE_SHARED_REGION
+   while(1) {
+       for(int i=0;i<256;i++) {
+           int r = rand();
+           if(r & 1) {
+               g_pShared->m_pShMem->bBooleans[i] = true;
+           }
+           else
+           {
+               g_pShared->m_pShMem->bBooleans[i] = false;
+           }
+       }
+       for (int i = 0; i < 256; i++) {
+           g_pShared->m_pShMem->iIntegers[i] = rand();
+       }
+       for(int i=0;i<256;i++) {
+           g_pShared->m_pShMem->dDoubles[i] = drand48();
+       }
+       g_pShared->dump_to_log();
+       sleep(5);
+   }
+#endif // RANDOMIZE_SHARED_REGION
+
+
+
 
     return EXIT_SUCCESS;
 }

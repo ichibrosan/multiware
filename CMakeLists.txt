@@ -31,6 +31,7 @@ add_library(mfw STATIC
 add_executable(multiware main.cpp
         std.h
 )
-
 target_link_libraries(multiware mfw)
 
+add_executable(look look.cpp)
+target_link_libraries(look mfw)

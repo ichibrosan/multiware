@@ -81,6 +81,8 @@ shared::shared()
     // end of shared ctor
 }
 
+
+
 /**  Note: Defined in shared.h
  *
  *   struct  MFW_SHMEM_T {
@@ -106,10 +108,10 @@ void shared::dump_to_log()
         sprintf(szBuffer,"%3d:  ",row*16);
         for(int col=0;col<16;col++) {
             if(m_pShMem->bBooleans[(row*16)+col]) {
-                strcat(szBuffer,"true   ");
+                strcat(szBuffer,"     true   ");
             } else
             {
-                strcat(szBuffer,"false  ");
+                strcat(szBuffer,"     false  ");
             }
         }
         pMFW->log(szBuffer);
@@ -120,7 +122,7 @@ void shared::dump_to_log()
     for(int row=0;row<16;row++) {
         sprintf(szBuffer,"%3d: ",row*16);
         for(int col=0;col<16;col++) {
-            sprintf(szTemp,"%6d ",
+            sprintf(szTemp,"%11d ",
                     m_pShMem->iIntegers[(row*16)+col]);
             strcat(szBuffer,szTemp);
         }
@@ -129,10 +131,10 @@ void shared::dump_to_log()
 
     pMFW->log("m_pShMem->dDoubles:");
     for(int row=0;row<16;row++) {
-        sprintf(szBuffer,"%3d: ",row*16);
+        sprintf(szBuffer,"%3d:    ",row*16);
         for(int col=0;col<16;col++) {
-            m_pShMem->dDoubles[(row*16)+col] = 3.14;
-            sprintf(szTemp,"%6g ",
+            //m_pShMem->dDoubles[(row*16)+col] = 3.14;
+            sprintf(szTemp,"%8.6f    ",
                     m_pShMem->dDoubles[(row*16)+col]);
             strcat(szBuffer,szTemp);
         }

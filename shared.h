@@ -17,18 +17,6 @@
 class shared {
     int m_smsi;     // shared memory segment identifier
 
-    /**
-     * If you change the MFW_SHMEM_T structure, you must reboot
-     * Linux before running the program again. This gets rid of
-     * the existing shared segment with old schema/length.
-     */
-    struct  MFW_SHMEM_T {
-        int     iSignature;
-        [[maybe_unused]] char    szIdent[256];
-        bool    bBooleans[256];
-        int     iIntegers[256];
-        double  dDoubles[256];
-    } * m_pShMem;
 
 public:
     shared();
@@ -37,7 +25,22 @@ public:
     static void decode_shmget_errno(int);
     static void decode_shmat_errno(int);
     void dump_to_log();
+
     ~shared();
+
+    /**
+      * If you change the MFW_SHMEM_T structure, you must reboot
+      * Linux before running the program again. This gets rid of
+      * the existing shared segment with old schema/length.
+      */
+    struct  MFW_SHMEM_T {
+        int     iSignature;
+        [[maybe_unused]] char    szIdent[256];
+        bool    bBooleans[256];
+        int     iIntegers[256];
+        double  dDoubles[256];
+    } * m_pShMem;
+
 };
 
 #endif //MULTIWARE_SHARED_H
