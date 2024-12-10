@@ -144,6 +144,52 @@ void shared::dump_to_log()
 
 }
 
+void shared::dump_to_screen()
+{
+
+    printf("pShMem->iSignature is %d\n",m_pShMem->iSignature);
+
+    printf("m_pShMem->bBooleans:\n");
+    char szBuffer[BUFSIZ];
+    for(int row=0;row<16;row++) {
+        sprintf(szBuffer,"%3d:  ",row*16);
+        for(int col=0;col<16;col++) {
+            if(m_pShMem->bBooleans[(row*16)+col]) {
+                strcat(szBuffer,"     true   ");
+            } else
+            {
+                strcat(szBuffer,"     false  ");
+            }
+        }
+        printf("%s\n",szBuffer);
+    }
+
+    printf("m_pShMem->iIntegers:\n");
+    char szTemp[BUFSIZ];
+    for(int row=0;row<16;row++) {
+        sprintf(szBuffer,"%3d: ",row*16);
+        for(int col=0;col<16;col++) {
+            sprintf(szTemp,"%11d ",
+                    m_pShMem->iIntegers[(row*16)+col]);
+            strcat(szBuffer,szTemp);
+        }
+        printf("%s\n",szBuffer);
+    }
+
+    printf("m_pShMem->dDoubles:\n");
+    for(int row=0;row<16;row++) {
+        sprintf(szBuffer,"%3d:    ",row*16);
+        for(int col=0;col<16;col++) {
+            //m_pShMem->dDoubles[(row*16)+col] = 3.14;
+            sprintf(szTemp,"%8.6f    ",
+                    m_pShMem->dDoubles[(row*16)+col]);
+            strcat(szBuffer,szTemp);
+        }
+        printf("%s\n",szBuffer);
+    }
+
+
+}
 
 /************************************************************
  * Decode errno coming from shmget

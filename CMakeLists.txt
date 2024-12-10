@@ -27,6 +27,7 @@ add_library(mfw STATIC
         shared.cpp    shared.h
         html.cpp      html.h
         metainfo.cpp  metainfo.h
+        termbind.cpp  termbind.h
 )
 add_executable(multiware main.cpp
         std.h

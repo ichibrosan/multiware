@@ -25,6 +25,7 @@ public:
     static void decode_shmget_errno(int);
     static void decode_shmat_errno(int);
     void dump_to_log();
+    void dump_to_screen();
 
     ~shared();
 

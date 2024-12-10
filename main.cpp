@@ -48,6 +48,7 @@ void demoPrint()
  * from anywhere
  */
 shared * g_pShared;
+termbind * g_pTerm;
 
 /*********************************************************************
  * Main Entry Point of MultiWare application
@@ -67,6 +68,9 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
 
     // Instantiate the shared class and set the global pointer.
     g_pShared = new shared();
+
+    g_pTerm = new termbind();
+    g_pTerm->crtclr();
 
 #ifdef DUMP_SHARED_CONTENTS
     // Dump the current contents of the shared region.
