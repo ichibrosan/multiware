@@ -7,6 +7,8 @@ This project contains a number of handy classes providing valuable
 support for application features useful for iomplementation and
 debugging.
 
+"html" class that generates static web pages.
+
 "metainfo" class that explores the c++ Standard Preprocessor Macros.
 
 "multiware" class that provides function level debugging aid with log
@@ -20,4 +22,4 @@ This is a Copyrighted work and is presented for evaluation only.
 Should you desire to use it for your own purposes, please contact
 Doug and arrange matters.
 
-Last Updated 2024/12/09 04:02 dwg 
+Last Updated 2024/12/10 02:57 dwg 
