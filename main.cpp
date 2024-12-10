@@ -8,11 +8,11 @@
 /***************************************
  * Conditional Feature Support Macros
  ***************************************/
-// #define DEBUG_MAIN
+#define DEBUG_MAIN
 // #define DEMO_OVERLOADED_FUNCTION
 // #define DISPLAY_METAINFO
 // #define DUMP_SHARED_CONTENTS
-#define RANDOMIZE_SHARED_REGION
+//#define RANDOMIZE_SHARED_REGION
 
 /**
  * Demonstrate an overloaded function
@@ -89,10 +89,33 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
 #endif // DEBUG_MAIN
     html *pHtml = new html(szFQFS);
     pHtml->open_head();
-    pHtml->title((char *)"Hello Test");
+    pHtml->title((char *)"Multiware Framework Console");
     pHtml->close_head();
     pHtml->open_body();
-    pHtml->print((char *)"      Hello World!!");
+    pHtml->imgsrc((char *)"http://mainframe.goodall.com/images/services.png");
+    pHtml->print((char *)"<p>");
+    pHtml->ahref((char *)"http://localhost/~doug/file.cgi",
+                 "<img src=\"http://mainframe.goodall.com/images/File.png\">\n");
+    pHtml->ahref((char *)"http://localhost/~doug/edit.cgi",
+                 "<img src=\"http://mainframe.goodall.com/images/Edit.png\">\n");
+    pHtml->ahref((char *)"http://localhost/~doug/view.cgi",
+                 "<img src=\"http://mainframe.goodall.com/images/View.png\">\n");
+    pHtml->ahref((char *)"http://localhost/~doug/navigate.cgi",
+                 "<img src=\"http://mainframe.goodall.com/images/Navigate.png\">\n");
+    pHtml->ahref((char *)"http://localhost/~doug/code.cgi",
+                 "<img src=\"http://mainframe.goodall.com/images/Code.png\">\n");
+    pHtml->ahref((char *)"http://localhost/~doug/refactor.cgi",
+                 "<img src=\"http://mainframe.goodall.com/images/Refactor.png\">\n");
+    pHtml->ahref((char *)"http://localhost/~doug/buiild.cgi",
+                 "<img src=\"http://mainframe.goodall.com/images/Build.png\">\n");
+    pHtml->ahref((char *)"http://localhost/~doug/run.cgi",
+                 "<img src=\"http://mainframe.goodall.com/images/Run.png\">\n");
+    pHtml->ahref((char *)"http://localhost/~doug/tools.cgi",
+                 "<img src=\"http://mainframe.goodall.com/images/Tools.png\">\n");
+    pHtml->ahref((char *)"http://localhost/~doug/window.cgi",
+                 "<img src=\"http://mainframe.goodall.com/images/Window.png\">\n");
+    pHtml->ahref((char *)"http://localhost/~doug/help.cgi",
+                 "<img src=\"http://mainframe.goodall.com/images/Help.png\">\n");
     pHtml->close_body();
     delete pHtml;
 

@@ -8,9 +8,14 @@
 html::html(char * szFQFS)
 {
     m_fd = fopen(szFQFS,"w");
+    assert(m_fd != nullptr);
     fprintf(m_fd,"<html>\n");
 }
 
+void html::ahref(char *szURL,char * szVisible)
+{
+    fprintf(m_fd,"        <a href=\"%s\">%s</a>\n",szURL,szVisible);
+}
 
 void html::open_head()
 {
@@ -34,6 +39,11 @@ void html::open_body()
     fprintf(m_fd,"  <body>\n");
 }
 
+void html::imgsrc(char * szURL)
+{
+    fprintf(m_fd,"      <img src=\"%s\">\n",szURL);
+}
+
 void html::print(char *szText)
 {
     fprintf(m_fd,"%s\n",szText);
@@ -46,6 +56,8 @@ void html::close_body()
 
 html::~html()
 {
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
+
     fprintf(m_fd,"</html>\n");
     fclose(m_fd);
 }

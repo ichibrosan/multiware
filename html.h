@@ -12,10 +12,12 @@ class html {
     char szFQFS[FILENAME_MAX];
 public:
     html(char * szFQFS);
+    void ahref(char *,char *);
     void open_head();
     void title(char *);
     void close_head();
     void open_body();
+    void imgsrc(char *);
     void print(char *);
     void close_body();
     ~html();
