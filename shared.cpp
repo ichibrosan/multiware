@@ -5,6 +5,7 @@
 
 #include "mfw.h"
 #include "shared.h"
+extern global * pG;
 
 #define OBJ_PERMS (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP)
 
@@ -149,60 +150,58 @@ void shared::dump_to_log()
 
 }
 
+
+/**********************************************************
+ * Display the contents of the shared region on the console
+ **********************************************************/
 void shared::dump_to_screen()
 {
-    g_pTerm->crtcntl(SGR,FG_WHITE);
+    pG->pTerm->crtcntl(SGR,FG_WHITE);
     printf("daphe.goodall.com:/home/doug/CLionProjects/"
           "multiware/look.cpp  ");
     printf("Copyright (C) 2024 Douglas Wade Goodall. "
            "All Right s Reserved.\n\n");
 //    printf("%c[38:5:91m",27);
-    printf("pShMem->iSignature is %d\n",m_pShMem->iSignature);
+    printf("pG->pShared->pShMem->iSignature is %d\n",
+           pG->pShared->m_pShMem->iSignature);
 
-    g_pTerm->crtcntl(SGR,FG_RED);
-    printf("m_pShMem->bBooleans:\n");
+    pG->pTerm->crtcntl(SGR,FG_RED);
+    printf("pG->pShared->m_pShMem->bBooleans:\n");
     char szBuffer[BUFSIZ];
     for(int row=0;row<16;row++) {
         sprintf(szBuffer,"%3d:  ",row*16);
         for(int col=0;col<16;col++) {
-            if(m_pShMem->bBooleans[(row*16)+col]) {
-//                if(8==col) {
-//                    g_pTerm->crtcntl(SGR,FG_RED);
-//                }
+            if(pG->pShared->m_pShMem->bBooleans[(row*16)+col]) {
                 strcat(szBuffer,"     true   ");
             } else
             {
-//                if(8==col) {
-//                    g_pTerm->crtcntl(SGR, FG_GREEN);
-//                }
                 strcat(szBuffer,"     false  ");
             }
         }
         printf("%s\n",szBuffer);
     }
 
-    g_pTerm->crtcntl(SGR,FG_GREEN);
-    printf("m_pShMem->iIntegers:\n");
+    pG->pTerm->crtcntl(SGR,FG_GREEN);
+    printf("pG->pShared->m_pShMem->iIntegers:\n");
     char szTemp[BUFSIZ];
     for(int row=0;row<16;row++) {
         sprintf(szBuffer,"%3d: ",row*16);
         for(int col=0;col<16;col++) {
             sprintf(szTemp,"%11d ",
-                    m_pShMem->iIntegers[(row*16)+col]);
+                    pG->pShared->m_pShMem->iIntegers[(row*16)+col]);
             strcat(szBuffer,szTemp);
         }
         printf("%s\n",szBuffer);
     }
 
-    g_pTerm->crtcntl(SGR,FG_BLUE);
-
-    printf("m_pShMem->dDoubles:\n");
+    pG->pTerm->crtcntl(SGR,FG_BLUE);
+    printf("pG->pShared->m_pShMem->dDoubles:\n");
     for(int row=0;row<16;row++) {
         sprintf(szBuffer,"%3d:    ",row*16);
         for(int col=0;col<16;col++) {
             //m_pShMem->dDoubles[(row*16)+col] = 3.14;
             sprintf(szTemp,"%8.6f    ",
-                    m_pShMem->dDoubles[(row*16)+col]);
+                    pG->pShared->m_pShMem->dDoubles[(row*16)+col]);
             strcat(szBuffer,szTemp);
         }
         printf("%s\n",szBuffer);
@@ -240,6 +239,7 @@ void shared::decode_shmget_errno(int shm_errno)
 
 }
 
+
 /***********************************************************
  * Decode errno coming from shmat
  * @param shm_errno
@@ -260,6 +260,7 @@ void shared::decode_shmat_errno(int shm_errno)
     }
 
 }
+
 
 /*******************************************
  * Get the Shared Memory Segment Identifier

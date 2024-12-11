@@ -28,6 +28,8 @@ add_library(mfw STATIC
         html.cpp      html.h
         metainfo.cpp  metainfo.h
         termbind.cpp  termbind.h
+        global.cpp
+        global.h
 )
 add_executable(multiware main.cpp
         std.h

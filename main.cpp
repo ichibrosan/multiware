@@ -11,8 +11,10 @@
 #define DEBUG_MAIN
 // #define DEMO_OVERLOADED_FUNCTION
 // #define DISPLAY_METAINFO
-// #define DUMP_SHARED_CONTENTS
+#define DUMP_SHARED_CONTENTS
 #define RANDOMIZE_SHARED_REGION
+
+global * pG = nullptr;
 
 /**
  * Demonstrate an overloaded function
@@ -42,14 +44,6 @@ void demoPrint()
 
 }
 
-/**
- * This global pointer to the instance of the shared class
- * assures we will have addressability to the shared data
- * from anywhere
- */
-shared * g_pShared;
-termbind * g_pTerm;
-
 /*********************************************************************
  * Main Entry Point of MultiWare application
  * @param argc Number of formal parameters
@@ -57,6 +51,9 @@ termbind * g_pTerm;
  * @return Returns in integer status code EXIT_SUCCESS or EXIT_FAILURE
  ********************************************************************/
 int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
+    pG = new global();
+    pG->pTerm->crtclr();
+
      // Instantiate an instance of the MultiWare Framework for this function
     MFW
     WHERE
@@ -66,16 +63,11 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
     pMFW->m_pMeta->show();
 #endif // DISPLAY_METAINFO
 
-    // Instantiate the shared class and set the global pointer.
-    g_pShared = new shared();
-
-    g_pTerm = new termbind();
-    g_pTerm->crtclr();
 
 #ifdef DUMP_SHARED_CONTENTS
     // Dump the current contents of the shared region.
     // See macro definition above
-    g_pShared->dump_to_log();
+    pG->pShared->dump_to_log();
 #endif // DUMP_SHARED_CONTENTS
 
     // Create a default web page at http://localhost/~doug
@@ -87,6 +79,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
     // See macro definition above
     printf("szFQFS is %s\n",szFQFS);
 #endif // DEBUG_MAIN
+
     html *pHtml = new html(szFQFS);
     pHtml->open_head();
     pHtml->title((char *)"Multiware Framework Console");
@@ -132,30 +125,27 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
 
 
 #ifdef RANDOMIZE_SHARED_REGION
-   while(1) {
-       for(int i=0;i<256;i++) {
-           int r = rand();
-           if(r & 1) {
-               g_pShared->m_pShMem->bBooleans[i] = true;
-           }
-           else
-           {
-               g_pShared->m_pShMem->bBooleans[i] = false;
-           }
+    while(1) {
+        for(int i=0;i<256;i++) {
+            int r = rand();
+            if(r & 1) {
+                pG->pShared->m_pShMem->bBooleans[i] = true;
+            }
+            else
+            {
+                pG->pShared->m_pShMem->bBooleans[i] = false;
+            }
        }
        for (int i = 0; i < 256; i++) {
-           g_pShared->m_pShMem->iIntegers[i] = rand();
+            pG->pShared->m_pShMem->iIntegers[i] = rand();
        }
        for(int i=0;i<256;i++) {
-           g_pShared->m_pShMem->dDoubles[i] = drand48();
+            pG->pShared->m_pShMem->dDoubles[i] = drand48();
        }
-       g_pShared->dump_to_log();
+        pG->pShared->dump_to_log();
        sleep(1);
    }
 #endif // RANDOMIZE_SHARED_REGION
-
-
-
 
     return EXIT_SUCCESS;
 }
