@@ -5,29 +5,29 @@
 #include "mfw.h"
 #include "look.h"
 
-shared      * pShared = nullptr;
-termbind    * pTerm   = nullptr;
+shared      * g_pShared = nullptr;
+termbind    * g_pTerm   = nullptr;
 
 int main() {
     MFW;
 
     // Instantiate Shared Segment support
-    pShared = new shared();
-    pTerm = new termbind();
-    pTerm->crtclr();
+    g_pShared = new shared();
+    g_pTerm = new termbind();
+    g_pTerm->crtclr();
 
     while (1) {
-        pTerm->crtlc(3, 1);
+        g_pTerm->crtcntl(CUP,1, 1);
 
 
-        pShared->dump_to_screen();
+        g_pShared->dump_to_screen();
 
         sleep(1);
     }
 
-    assert(pShared != nullptr);
-    assert(pShared->m_pShMem != nullptr);
-    pShared->m_pShMem->iSignature++;
+    assert(g_pShared != nullptr);
+    assert(g_pShared->m_pShMem != nullptr);
+    g_pShared->m_pShMem->iSignature++;
 
     return 0;
 }

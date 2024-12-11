@@ -14,6 +14,9 @@
  * 0x00005164 37         doug       660        3592       0
  */
 
+//+
+// termbind * pTerm;
+
 /***********************************************************************
  * Constructor for Shared Memory Class
  *      creates (if necessary) and attaches to MFW Shared Memory Segment
@@ -21,6 +24,8 @@
 shared::shared()
 {
     MFW
+
+
 
     // Set key to hex version of my VPA port number (recognizable)
     key_t key = 0x5164;
@@ -146,24 +151,37 @@ void shared::dump_to_log()
 
 void shared::dump_to_screen()
 {
-
+    g_pTerm->crtcntl(SGR,FG_WHITE);
+    printf("daphe.goodall.com:/home/doug/CLionProjects/"
+          "multiware/look.cpp  ");
+    printf("Copyright (C) 2024 Douglas Wade Goodall. "
+           "All Right s Reserved.\n\n");
+//    printf("%c[38:5:91m",27);
     printf("pShMem->iSignature is %d\n",m_pShMem->iSignature);
 
+    g_pTerm->crtcntl(SGR,FG_RED);
     printf("m_pShMem->bBooleans:\n");
     char szBuffer[BUFSIZ];
     for(int row=0;row<16;row++) {
         sprintf(szBuffer,"%3d:  ",row*16);
         for(int col=0;col<16;col++) {
             if(m_pShMem->bBooleans[(row*16)+col]) {
+//                if(8==col) {
+//                    g_pTerm->crtcntl(SGR,FG_RED);
+//                }
                 strcat(szBuffer,"     true   ");
             } else
             {
+//                if(8==col) {
+//                    g_pTerm->crtcntl(SGR, FG_GREEN);
+//                }
                 strcat(szBuffer,"     false  ");
             }
         }
         printf("%s\n",szBuffer);
     }
 
+    g_pTerm->crtcntl(SGR,FG_GREEN);
     printf("m_pShMem->iIntegers:\n");
     char szTemp[BUFSIZ];
     for(int row=0;row<16;row++) {
@@ -175,6 +193,8 @@ void shared::dump_to_screen()
         }
         printf("%s\n",szBuffer);
     }
+
+    g_pTerm->crtcntl(SGR,FG_BLUE);
 
     printf("m_pShMem->dDoubles:\n");
     for(int row=0;row<16;row++) {

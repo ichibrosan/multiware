@@ -12,7 +12,7 @@
 // #define DEMO_OVERLOADED_FUNCTION
 // #define DISPLAY_METAINFO
 // #define DUMP_SHARED_CONTENTS
-//#define RANDOMIZE_SHARED_REGION
+#define RANDOMIZE_SHARED_REGION
 
 /**
  * Demonstrate an overloaded function
@@ -150,7 +150,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
            g_pShared->m_pShMem->dDoubles[i] = drand48();
        }
        g_pShared->dump_to_log();
-       sleep(5);
+       sleep(1);
    }
 #endif // RANDOMIZE_SHARED_REGION
 
