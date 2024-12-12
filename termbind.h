@@ -35,6 +35,16 @@ enum CRTCNTL_T {
     DSR     // Device Status Report
 };
 
+/*
+    #define CUU 0
+    #define CUD 1
+    ...
+    #define DSR 14
+*/
+
+
+
+
 enum FGCOLORS_T {
        FG_BLACK   = 30,
        FG_RED     = 31,
@@ -53,6 +63,23 @@ enum FGCOLORS_T {
        FG_BR_CYAN    = 96,
        FG_BR_WHITE   = 97
 };
+
+/*********************************************************
+// Select Graphic Rendition Functions
+// See https://en.wikipedia.org/wiki/ANSI_escape_code#SGR
+ *********************************************************/
+enum SGR_T {
+    SGR_RESET,
+    SGR_BOLD,
+    SGR_FAINT,
+    SGR_ITALIC,
+    SGR_UNDERLINE,
+    SGR_SLOW_BLINK,
+    SGR_RAPID_BLINK
+};
+
+
+
 
 class termbind {
 public:

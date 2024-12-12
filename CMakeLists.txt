@@ -23,13 +23,18 @@ set(CMAKE_CXX clang++)
 ############################################
 
 add_library(mfw STATIC
-        mfw.cpp       mfw.h
-        shared.cpp    shared.h
-        html.cpp      html.h
-        metainfo.cpp  metainfo.h
-        termbind.cpp  termbind.h
+        mfw.cpp         mfw.h
+        shared.cpp      shared.h
+        html.cpp        html.h
+        metainfo.cpp    metainfo.h
+        termbind.cpp    termbind.h
         global.cpp
         global.h
+        local.cpp
+        local.h
+        location.cpp
+        location.h
+        environment.cpp environment.h
 )
 add_executable(multiware main.cpp
         std.h

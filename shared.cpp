@@ -9,6 +9,10 @@ extern global * pG;
 
 #define OBJ_PERMS (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP)
 
+
+
+
+
 /**
  * ------ Shared Memory Segments --------
  * key        shmid      owner      perms      bytes      nattch     status
@@ -77,7 +81,10 @@ shared::shared()
             "shmat(smsi=0x%x,shmaddr=%p,shmflg=0x%x);",
             key,nullptr,shmflg);
     pMFW->log(szBuffer);
+
+    // Establish addressability to shared segment
     m_pShMem  = (MFW_SHMEM_T *)shmat(m_smsi,nullptr,shmflg);
+
     if( (void *)-1 == m_pShMem) {
         printf("Error calling shmat\n");
         decode_shmat_errno(errno);

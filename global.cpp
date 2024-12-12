@@ -8,9 +8,11 @@
 
 global::global()
 {
+    pEnv       = new environment();
     pTerm      = new termbind();
     pHtml      = new html((char *)"global.html");
     pShared    = new shared();
+    //pLoc       = new location();
 }
 
 global::~global()
@@ -18,4 +20,5 @@ global::~global()
     delete pShared;
     delete pHtml;
     delete pTerm;
+    delete pEnv;
 }

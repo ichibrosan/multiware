@@ -54,7 +54,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
     pG = new global();
     pG->pTerm->crtclr();
 
-     // Instantiate an instance of the MultiWare Framework for this function
+    // Instantiate an instance of the MultiWare Framework for this function
     MFW
     WHERE
 

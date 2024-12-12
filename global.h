@@ -5,14 +5,17 @@
 #ifndef MULTIWARE_GLOBAL_H
 #define MULTIWARE_GLOBAL_H
 
+#include "mfw.h"
 
 class global {
 public:
     global();
     ~global();
-    html     * pHtml;
-    shared   * pShared;
-    termbind * pTerm;
+    environment * pEnv;
+    html        * pHtml;
+    shared      * pShared;
+    termbind    * pTerm;
+    location    * pLoc;
 };
 
 

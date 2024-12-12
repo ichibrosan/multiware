@@ -10,20 +10,18 @@
 
 // Emulate "import std;"
 #include "std.h"
-// Multiware FrameWork class headers
+#include "location.h"
+#include "environment.h"
 #include "shared.h"
 #include "html.h"
 #include "metainfo.h"
 #include "termbind.h"
 #include "global.h"
-
-
+#include "local.h"
 
 #define MFW_DELETE_LOGS_ON_MAIN_STARTUP
 #define MFW_LOG_PARMS_ON_MFW_INSTANTIATION
 #define MFW_LOG_ENTRY_TO_FUNCTION
-
-//extern termbind * g_pTerm;
 
 /*******************************************************************
  * From https://www.iana.org/assignments/service-names-port-numbers/
