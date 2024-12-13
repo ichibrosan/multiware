@@ -22,7 +22,9 @@ extern termbind *pTerm;
  */
 termbind::termbind()
 {
+#ifdef CLEAR_SCREEN_ON_TERMBIND_CTOR
     crtclr();
+#endif // CLEAR_SCREEN_ON_TERMBIND_CTOR
 }
 
 void termbind::crtcntl(int abbr,int n)

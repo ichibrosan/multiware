@@ -8,8 +8,17 @@
 
 global::global()
 {
-    pEnv       = new environment();
+    /**
+     * termbind comes first so if CLEAR_SCREEN_ON_TERMBIND_CTOR is defined
+     * the screen will be cleared and the cursor homed before all else.
+     */
     pTerm      = new termbind();
+
+    /**
+     * environment CTOR fetches LOGNAME from the environment
+     */
+    pEnv       = new environment();
+
     pHtml      = new html((char *)"global.html");
     pShared    = new shared();
     //pLoc       = new location();

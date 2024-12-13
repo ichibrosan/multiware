@@ -35,6 +35,7 @@ add_library(mfw STATIC
         location.cpp
         location.h
         environment.cpp environment.h
+        ascii.h
 )
 add_executable(multiware main.cpp
         std.h

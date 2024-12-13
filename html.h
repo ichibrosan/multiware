@@ -7,6 +7,11 @@
 
 #include "mfw.h"
 
+enum HTML_LOCATION {
+    HTML_USERDIR,
+    HTML_VARWWW
+};
+
 class html {
     FILE * m_fd;
     char szFQFS[FILENAME_MAX];

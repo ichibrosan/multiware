@@ -9,6 +9,7 @@
 #define MULTIWARE_MFW_H
 
 // Emulate "import std;"
+#include "ascii.h"
 #include "std.h"
 #include "location.h"
 #include "environment.h"
@@ -22,6 +23,7 @@
 #define MFW_DELETE_LOGS_ON_MAIN_STARTUP
 #define MFW_LOG_PARMS_ON_MFW_INSTANTIATION
 #define MFW_LOG_ENTRY_TO_FUNCTION
+#define CLEAR_SCREEN_ON_TERMBIND_CTOR
 
 /*******************************************************************
  * From https://www.iana.org/assignments/service-names-port-numbers/
@@ -45,6 +47,10 @@
  *****************************************************************/
 #define WHERE pMFW->where( \
     __FUNCTION__,__PRETTY_FUNCTION__,__FILE__,__LINE__);
+
+
+
+
 
 /**************************************************
  * This is the MultiWare Framework Top Level Class

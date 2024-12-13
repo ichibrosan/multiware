@@ -7,6 +7,7 @@
 
 html::html(char * szFQFS)
 {
+    //char szFQFS[BUFSIZ];
     m_fd = fopen(szFQFS,"w");
     assert(m_fd != nullptr);
     fprintf(m_fd,"<html>\n");

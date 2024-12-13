@@ -52,7 +52,6 @@ void demoPrint()
  ********************************************************************/
 int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
     pG = new global();
-    pG->pTerm->crtclr();
 
     // Instantiate an instance of the MultiWare Framework for this function
     MFW
@@ -125,6 +124,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
 
 
 #ifdef RANDOMIZE_SHARED_REGION
+    std::cout << "Randomizing Shared Memory Segment" << std::endl;
     while(1) {
         for(int i=0;i<256;i++) {
             int r = rand();

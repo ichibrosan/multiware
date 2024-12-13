@@ -10,6 +10,6 @@ environment::environment()
    // m_processPid = getpid();
 
     char *pszLogname = getenv("LOGNAME");
-    printf("pszLogname -> %s\n",pszLogname);
+    //printf("pszLogname -> %s\n",pszLogname);
     m_ssLogname = pszLogname;
 }

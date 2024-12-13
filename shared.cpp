@@ -164,11 +164,7 @@ void shared::dump_to_log()
 void shared::dump_to_screen()
 {
     pG->pTerm->crtcntl(SGR,FG_WHITE);
-    printf("daphe.goodall.com:/home/doug/CLionProjects/"
-          "multiware/look.cpp  ");
-    printf("Copyright (C) 2024 Douglas Wade Goodall. "
-           "All Right s Reserved.\n\n");
-//    printf("%c[38:5:91m",27);
+ //    printf("%c[38:5:91m",27);
     printf("pG->pShared->pShMem->iSignature is %d\n",
            pG->pShared->m_pShMem->iSignature);
 
