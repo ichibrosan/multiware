@@ -9,21 +9,35 @@
 #define MULTIWARE_MFW_H
 
 // Emulate "import std;"
-#include "ascii.h"
 #include "std.h"
+#include "ascii.h"
+
+/***************************************
+ * Conditional Feature Support Macros
+ ***************************************/
+#define MFW_DELETE_LOGS_ON_MAIN_STARTUP
+#define MFW_LOG_PARMS_ON_MFW_INSTANTIATION
+#define MFW_LOG_ENTRY_TO_FUNCTION
+#define CLEAR_SCREEN_ON_TERMBIND_CTOR
+#define DEBUG_MAIN
+// #define DEMO_OVERLOADED_FUNCTION
+// #define DISPLAY_METAINFO
+//#define DUMP_SHARED_CONTENTS
+//#define RANDOMIZE_SHARED_REGION
+//#define FORKPROC_ENABLED
+
 #include "location.h"
 #include "environment.h"
 #include "shared.h"
 #include "html.h"
 #include "metainfo.h"
 #include "termbind.h"
+
+#include "forkproc.h"
 #include "global.h"
 #include "local.h"
 
-#define MFW_DELETE_LOGS_ON_MAIN_STARTUP
-#define MFW_LOG_PARMS_ON_MFW_INSTANTIATION
-#define MFW_LOG_ENTRY_TO_FUNCTION
-#define CLEAR_SCREEN_ON_TERMBIND_CTOR
+
 
 /*******************************************************************
  * From https://www.iana.org/assignments/service-names-port-numbers/

@@ -28,8 +28,9 @@ extern global * pG;
  ***********************************************************************/
 shared::shared()
 {
+#ifndef CGI
     MFW
-
+#endif // CGI
 
 
     // Set key to hex version of my VPA port number (recognizable)
@@ -42,12 +43,12 @@ shared::shared()
     // the shared region once created. See shared.h
     int shmflg = OBJ_PERMS;
 
-    // Log the parameters I am going to use to open the shared segment
-    char szBuffer[BUFSIZ];
-    sprintf(szBuffer,
-            "shmget(key=0x%x,size=%ld,shmflg=0x%x);",
-            key,size,shmflg);
-    pMFW->log(szBuffer);
+//    // Log the parameters I am going to use to open the shared segment
+//    char szBuffer[BUFSIZ];
+//    sprintf(szBuffer,
+//            "shmget(key=0x%x,size=%ld,shmflg=0x%x);",
+//            key,size,shmflg);
+//    pMFW->log(szBuffer);
 
     m_smsi  = shmget(key,size,shmflg);
     // Test to see if we open the segment successfully
@@ -58,11 +59,11 @@ shared::shared()
             pMFW->log("Creating shared memory segment");
             shmflg = IPC_CREAT | OBJ_PERMS;
 
-            // Log the parameters I am using to create the segment
-            sprintf(szBuffer,
-                    "shmget(key=0x%x,size=%ld,shmflg=0x%x);",
-                    key,size,shmflg);
-            pMFW->log(szBuffer);
+//            // Log the parameters I am using to create the segment
+//            sprintf(szBuffer,
+//                    "shmget(key=0x%x,size=%ld,shmflg=0x%x);",
+//                    key,size,shmflg);
+//            pMFW->log(szBuffer);
 
             // Create the memory segment and save the identifier
             m_smsi  = shmget(key,size,shmflg);
@@ -77,10 +78,10 @@ shared::shared()
 
     // Prepare to attach shared segment using shmat
     shmflg = 0;
-    sprintf(szBuffer,
-            "shmat(smsi=0x%x,shmaddr=%p,shmflg=0x%x);",
-            key,nullptr,shmflg);
-    pMFW->log(szBuffer);
+//    sprintf(szBuffer,
+//            "shmat(smsi=0x%x,shmaddr=%p,shmflg=0x%x);",
+//            key,nullptr,shmflg);
+//    pMFW->log(szBuffer);
 
     // Establish addressability to shared segment
     m_pShMem  = (MFW_SHMEM_T *)shmat(m_smsi,nullptr,shmflg);
@@ -91,6 +92,8 @@ shared::shared()
     }
 
     m_pShMem->iSignature = UNIVERSAL_ANSWER;
+    m_pShMem->forkproc.control = forkproc_control_t::ControlIdle;
+
     // end of shared ctor
 }
 
@@ -108,6 +111,7 @@ shared::shared()
  *
  */
 
+#ifndef CGI
 /***************************************
  * Dump shared memory region to log file
  **************************************/
@@ -212,6 +216,7 @@ void shared::dump_to_screen()
 
 
 }
+#endif // CGI
 
 /************************************************************
  * Decode errno coming from shmget

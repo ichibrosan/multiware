@@ -12,6 +12,7 @@
 #ifndef MULTIWARE_STD_H
 #define MULTIWARE_STD_H
 
+// OLD STYLE SYSTEM INCLUDES
 #include <errno.h>
 #include <stdio.h>
 #include <sys/shm.h>
@@ -19,6 +20,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+// MODERN STYLE SYSTEM INCLUDES
 #include <cassert>
 #include <iostream>
 #include <cstring>

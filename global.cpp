@@ -22,10 +22,20 @@ global::global()
     pHtml      = new html((char *)"global.html");
     pShared    = new shared();
     //pLoc       = new location();
+
+#ifdef FORKPROC_ENABLED
+    pFork       = new forkproc();
+#endif // FORKPROC_ENABLED
+
 }
 
 global::~global()
 {
+
+#ifdef FORKPROC_ENABLED
+    delete pFork;
+#endif // FORKPROC_ENABLED
+
     delete pShared;
     delete pHtml;
     delete pTerm;

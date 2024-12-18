@@ -5,14 +5,6 @@
 
 #include "mfw.h"
 
-/***************************************
- * Conditional Feature Support Macros
- ***************************************/
-#define DEBUG_MAIN
-// #define DEMO_OVERLOADED_FUNCTION
-// #define DISPLAY_METAINFO
-#define DUMP_SHARED_CONTENTS
-#define RANDOMIZE_SHARED_REGION
 
 global * pG = nullptr;
 
@@ -146,6 +138,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
        sleep(1);
    }
 #endif // RANDOMIZE_SHARED_REGION
+
+    delete pG;
 
     return EXIT_SUCCESS;
 }

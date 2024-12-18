@@ -16,6 +16,11 @@ public:
     shared      * pShared;
     termbind    * pTerm;
     location    * pLoc;
+
+#ifdef FORKPROC_ENABLED
+    forkproc    * pFork;
+#endif // FORKPROC_ENABLED
+
 };
 
 

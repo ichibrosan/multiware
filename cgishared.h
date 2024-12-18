@@ -1,10 +1,10 @@
-/////////////////////////////////////////////////////////////////
-// daphne.goodall.com/home/doug/CLionProjects/multiware/shared.h
+////////////////////////////////////////////////////////////////////
+// daphne.goodall.com/home/doug/CLionProjects/multiware/cgishared.h
 // Copyright (c) 2024 Douglas Wade Goodall. All Rights Reserved.
-/////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
 
-#ifndef MULTIWARE_SHARED_H
-#define MULTIWARE_SHARED_H
+#ifndef MULTIWARE_CGISHARED_H
+#define MULTIWARE_CGISHARED_H
 
 // Used for shared segment signature
 // See Douglas Adam, Hitchhiker's Guide et al.
@@ -23,22 +23,15 @@ enum class forkproc_control_t {
  * A class to provide function and data for handling a shared
  * memory segment.
  ***********************************************************/
-class shared {
+class cgishared {
     int m_smsi;     // shared memory segment identifier
 
 public:
-    shared();
-
+    cgishared();
     [[maybe_unused]] [[nodiscard]] int get_smsi() const;
     static void decode_shmget_errno(int);
     static void decode_shmat_errno(int);
-
-#ifndef CGI
-    void dump_to_log();
-    void dump_to_screen();
-#endif // DISABLE_SHARED_DUMPS
-
-    ~shared();
+    ~cgishared();
 
     /**
       * If you change the MFW_SHMEM_T structure, you must reboot
@@ -66,8 +59,8 @@ public:
 
 };
 
-#endif //MULTIWARE_SHARED_H
+#endif //MULTIWARE_CGISHARED_H
 
-////////////////////
-// eof - shared/h //
-////////////////////
+///////////////////////
+// eof - cgishared.h //
+///////////////////////

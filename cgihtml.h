@@ -2,31 +2,30 @@
 // Created by doug on 12/8/24.
 //
 
-#ifndef MULTIWARE_HTML_H
-#define MULTIWARE_HTML_H
+#ifndef MULTIWARE_CGIHTML_H
+#define MULTIWARE_CGIHTML_H
 
-#include "mfw.h"
 
 enum HTML_LOCATION {
     HTML_USERDIR,
     HTML_VARWWW
 };
 
-class html {
-    FILE * m_fd;
-    char szFQFS[FILENAME_MAX];
+class cgihtml {
+    char m_page[BUFSIZ];
 public:
-    html(char * szPQFS);
+    cgihtml();
     void ahref(char *,char *);
     void open_head();
     void title(char *);
     void close_head();
     void open_body();
     void imgsrc(char *);
+    void para();
     void print(char *);
     void close_body();
-    ~html();
+    ~cgihtml();
 };
 
 
-#endif //MULTIWARE_HTML_H
+#endif //MULTIWARE_CGIHTML_H

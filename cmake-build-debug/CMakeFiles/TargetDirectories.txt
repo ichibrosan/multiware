@@ -1,5 +1,6 @@
 /home/doug/CLionProjects/multiware/cmake-build-debug/CMakeFiles/mfw.dir
 /home/doug/CLionProjects/multiware/cmake-build-debug/CMakeFiles/multiware.dir
 /home/doug/CLionProjects/multiware/cmake-build-debug/CMakeFiles/look.dir
+/home/doug/CLionProjects/multiware/cmake-build-debug/CMakeFiles/mwcgi.cgi.dir
 /home/doug/CLionProjects/multiware/cmake-build-debug/CMakeFiles/edit_cache.dir
 /home/doug/CLionProjects/multiware/cmake-build-debug/CMakeFiles/rebuild_cache.dir
