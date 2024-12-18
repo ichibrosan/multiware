@@ -89,10 +89,12 @@ mwcgi::mwcgi() {
      m_pHTML->open_body();
      m_pHTML->imgsrc((char *)IMGROOT "my-logo.png");
      m_pHTML->para();
+     m_pHTML->print("<h1>");
      m_pHTML->ahref( (char *)CGIROOT "mwcgi.cgi?func=0",(char *)"Reset");
      m_pHTML->ahref( (char *)CGIROOT "mwcgi.cgi?func=1",(char *)"Step");
      m_pHTML->ahref( (char *)CGIROOT "mwcgi.cgi?func=2",(char *)"Run");
      m_pHTML->ahref( (char *)CGIROOT "mwcgi.cgi?func=3",(char *)"Stop");
+     m_pHTML->print("</h1>");
      m_pHTML->para();
      //std::cout << "<p>m_query_string is " << m_query_string << std::endl;
      m_pHTML->close_body();
