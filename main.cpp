@@ -118,23 +118,23 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
 #ifdef RANDOMIZE_SHARED_REGION
     std::cout << "Randomizing Shared Memory Segment" << std::endl;
     while(1) {
-        for(int i=0;i<256;i++) {
-            int r = rand();
-            if(r & 1) {
-                pG->pShared->m_pShMem->bBooleans[i] = true;
+        if(pG->pShared->m_pShMem->forkproc.bRunning == true) {
+            for (int i = 0; i < 256; i++) {
+                int r = rand();
+                if (r & 1) {
+                    pG->pShared->m_pShMem->bBooleans[i] = true;
+                } else {
+                    pG->pShared->m_pShMem->bBooleans[i] = false;
+                }
             }
-            else
-            {
-                pG->pShared->m_pShMem->bBooleans[i] = false;
+            for (int i = 0; i < 256; i++) {
+                pG->pShared->m_pShMem->iIntegers[i] = rand() & 255;
             }
-       }
-       for (int i = 0; i < 256; i++) {
-            pG->pShared->m_pShMem->iIntegers[i] = rand()&255;
-       }
-       for(int i=0;i<256;i++) {
-            pG->pShared->m_pShMem->dDoubles[i] = drand48();
-       }
-        pG->pShared->dump_to_log();
+            for (int i = 0; i < 256; i++) {
+                pG->pShared->m_pShMem->dDoubles[i] = drand48();
+            }
+        }
+        //pG->pShared->dump_to_log();
        sleep(1);
    }
 #endif // RANDOMIZE_SHARED_REGION

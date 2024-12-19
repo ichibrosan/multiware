@@ -22,6 +22,10 @@ struct  MFW_SHMEM_T {
     int     iIntegers[256];
     double  dDoubles[256];
 
+    bool    bBoldEven;
+    bool    bBoldOdd;
+
+
     // forkproc data
     struct FORKPROC_DATA_T {
         forkproc_control_t control;     // See forkproc.h

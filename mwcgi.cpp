@@ -22,12 +22,16 @@ enum {
     Reset = '0',
     Step,
     Run,
-    Stop
+    Stop,
+    BoldEven,
+    BoldOdd,
+    BoldNone
 };
 
 mwcgi::mwcgi() {
     //printf("%s", __PRETTY_FUNCTION__);
     m_pShared = new cgishared();
+
 //    if (UNIVERSAL_ANSWER == pShared->m_pShMem->iSignature) {
 //        std::cout << "<p>established addressability to shared region"
 //                  << std::endl;
@@ -35,7 +39,6 @@ mwcgi::mwcgi() {
 
     //pShared->m_pShMem->pVPA = new vpa();
     //std::cout << pShared->m_pShMem->pVPA.
-    generate();
 
     char szQueryString[BUFSIZ];
     char * psz = getenv("QUERY_STRING");
@@ -68,11 +71,21 @@ mwcgi::mwcgi() {
                 case Stop:
                     stop();
                     break;
+                case BoldEven:
+                    bold_even();
+                    break;
+                case BoldOdd:
+                    bold_odd();
+                    break;
+                case BoldNone:
+                    bold_none();
+                    break;
             }
         }
     }
+    generate();
 
- }
+}
 
  void mwcgi::reset()
  {
@@ -91,19 +104,44 @@ mwcgi::mwcgi() {
  {
      m_pHTML->para();
      m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
-
+     m_pShared->m_pShMem->forkproc.bRunning = true;
  }
 
- void mwcgi::stop()
- {
-     m_pHTML->para();
-     m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
+void mwcgi::stop()
+{
+    m_pHTML->para();
+    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
+    m_pShared->m_pShMem->forkproc.bRunning = false;
 
- }
+}
+void mwcgi::bold_even()
+{
+    m_pHTML->para();
+    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
+    m_pShared->m_pShMem->bBoldEven = true;
+    m_pShared->m_pShMem->bBoldOdd  = false;
+
+}
+void mwcgi::bold_odd()
+{
+    m_pHTML->para();
+    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
+    m_pShared->m_pShMem->bBoldEven = false;
+    m_pShared->m_pShMem->bBoldOdd  = true;
+
+}
+void mwcgi::bold_none()
+{
+    m_pHTML->para();
+    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
+    m_pShared->m_pShMem->bBoldEven = false;
+    m_pShared->m_pShMem->bBoldOdd  = false;
+
+}
 
 
 
- void mwcgi::generate()
+void mwcgi::generate()
  {
      m_pHTML = new cgihtml();
      m_pHTML->open_head();
@@ -112,6 +150,28 @@ mwcgi::mwcgi() {
      m_pHTML->open_body();
      m_pHTML->imgsrc((char *)IMGROOT "my-logo.png");
      m_pHTML->para();
+
+     if(m_pShared->m_pShMem->bBoldEven) {
+         printf("<p>bBoldEven is true");
+     } else {
+         printf("<p>bBoldEven is false");
+     }
+
+     if(m_pShared->m_pShMem->bBoldOdd) {
+         printf("<p>bBoldOdd is true");
+     } else {
+         printf("<p>bBoldOdd is false");
+     }
+
+     if(m_pShared->m_pShMem->forkproc.bRunning) {
+         printf("<p>bRunning is true");
+     } else {
+         printf("<p>bRunning is false");
+     }
+
+
+     m_pHTML->para();
+
      m_pHTML->open_table(1);
 
      // label the rows
@@ -132,9 +192,19 @@ mwcgi::mwcgi() {
 
             // odd values are bolded
             if(1 & byte) {
-                printf("<td><b>%02X</b></td>",byte);
+                if(m_pShared->m_pShMem->bBoldOdd) {
+                    printf("<td><b>%02X</b></td>", byte);
+                } else {
+                    printf("<td>%02X</td>", byte);
+
+                }
             } else {
-                printf("<td>%02X</td>",byte);
+                if(m_pShared->m_pShMem->bBoldEven) {
+                    printf("<td><b>%02X</b></td>", byte);
+                } else {
+                    printf("<td>%02X</td>", byte);
+
+                }
 
             }
         }
@@ -142,12 +212,16 @@ mwcgi::mwcgi() {
      }
 
      m_pHTML->para();
-     m_pHTML->print((char *)"<h1>");
+     m_pHTML->print((char *)"<h2>");
      m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=0",(char *)"Reset");
      m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=1",(char *)"Step");
      m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=2",(char *)"Run");
      m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=3",(char *)"Stop");
-     m_pHTML->print((char *)"</h1>");
+     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=4",(char *)"BoldEven");
+     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=5",(char *)"BoldOdd");
+     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=6",(char *)"BoldNone");
+
+     m_pHTML->print((char *)"</h2>");
      m_pHTML->para();
      //std::cout << "<p>m_query_string is " << m_query_string << std::endl;
      m_pHTML->close_body();
