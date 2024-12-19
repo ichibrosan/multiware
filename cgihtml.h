@@ -17,6 +17,8 @@ public:
     cgihtml();
     void ahref(char *,char *);
     void open_head();
+    void open_style();
+    void close_style();
     void title(char *);
     void close_head();
     void open_body();

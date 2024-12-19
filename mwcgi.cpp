@@ -38,12 +38,24 @@ mwcgi::mwcgi() {
     generate();
 
     char szQueryString[BUFSIZ];
-    char * p = getenv("QUERY_STRING");
-    if(nullptr != p) {
-        m_query_string = p;
+    char * psz = getenv("QUERY_STRING");
+    if(nullptr != psz) {
+
+        // convert to std::string and save in data member
+        m_query_string = psz;
+
+        // make sure the query string isn't empty before trying to copy
         if(0 < m_query_string.length()) {
-            strcpy(szQueryString,p);
-            switch(szQueryString[5]) {
+            strcpy(szQueryString,psz);
+
+            // query string offsets...
+            // 0123456789
+            // func=2
+            //      ^
+            // extract the character determining the function number
+            char  cFunction = szQueryString[5];
+
+            switch(cFunction) {
                 case Reset:
                     reset();
                     break;
@@ -59,11 +71,6 @@ mwcgi::mwcgi() {
             }
         }
     }
-//    printf("<p>QUERY_STRING is %s",p);
-//    std::cout << "<p>m_query_string is " << m_query_string << std::endl;
-
-
-
 
  }
 
@@ -105,10 +112,10 @@ mwcgi::mwcgi() {
      m_pHTML->open_body();
      m_pHTML->imgsrc((char *)IMGROOT "my-logo.png");
      m_pHTML->para();
-
      m_pHTML->open_table(1);
 
-     printf("<tr><th>  </th>");
+     // label the rows
+     printf("<tr><th> + </th>");
      for(int col=0;col<16;col++) {
          printf("<th>%2X</th>",col);
      }
@@ -116,10 +123,14 @@ mwcgi::mwcgi() {
 
      for(int row=0;row<16;row++) {
 
+        // label the columns
+        printf("<tr><th>%02X</th>",row*16);
 
-        printf("<tr><th>%2X</th>",row);
+        // display each column of the current ro
         for(int col=0;col<16;col++) {
             int byte = m_pShared->m_pShMem->iIntegers[(row*16)+col];
+
+            // odd values are bolded
             if(1 & byte) {
                 printf("<td><b>%02X</b></td>",byte);
             } else {
@@ -129,7 +140,6 @@ mwcgi::mwcgi() {
         }
         printf("</tr>");
      }
-
 
      m_pHTML->para();
      m_pHTML->print((char *)"<h1>");

@@ -10,6 +10,16 @@ cgihtml::cgihtml()
      printf("<html>\n");
 }
 
+void cgihtml::open_style()
+{
+    print("<style>");
+}
+
+void cgihtml::close_style()
+{
+    print("</style>");
+}
+
 void cgihtml::open_table(int border)
 {
     printf("<table border=%d>",border);
