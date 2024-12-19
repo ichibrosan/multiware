@@ -22,14 +22,11 @@ cgishared::cgishared()
 {
     // Set key to hex version of my VPA port number (recognizable)
     key_t key = 0x5164;
-
     // Set size to the size of my shared data structure (member data)
     size_t size=sizeof(MFW_SHMEM_T);
-
     // Set shmFlg with read/write permissions, so I can access
     // the shared region once created. See shared.h
     int shmflg = OBJ_PERMS;
-
     m_smsi  = shmget(key,size,shmflg);
     // Test to see if we open the segment successfully
     if(-1 == m_smsi) {
@@ -40,7 +37,6 @@ cgishared::cgishared()
 
             // Create the memory segment and save the identifier
             m_smsi  = shmget(key,size,shmflg);
-
             if(-1==m_smsi) {
                 decode_shmget_errno(errno);
                 std::cout << "ERROR: unable to open shared segment"

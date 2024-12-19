@@ -10,6 +10,16 @@ cgihtml::cgihtml()
      printf("<html>\n");
 }
 
+void cgihtml::open_table(int border)
+{
+    printf("<table border=%d>",border);
+}
+
+void cgihtml::close_table()
+{
+    printf("</table>");
+}
+
 void cgihtml::ahref(char *szURL,char * szVisible)
 {
     printf("        <a href=\"%s\">%s</a>\n",szURL,szVisible);

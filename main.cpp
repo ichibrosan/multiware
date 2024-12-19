@@ -129,7 +129,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
             }
        }
        for (int i = 0; i < 256; i++) {
-            pG->pShared->m_pShMem->iIntegers[i] = rand();
+            pG->pShared->m_pShMem->iIntegers[i] = rand()&255;
        }
        for(int i=0;i<256;i++) {
             pG->pShared->m_pShMem->dDoubles[i] = drand48();

@@ -7,18 +7,34 @@
 #include "cgishared.h"
 #include "cgihtml.h"
 #include "mwcgi.h"
+#include "vpa.h"
 
-#define IMGROOT "http://127.0.0.1/~doug/"
-#define CGIROOT "http://127.0.0.1/~doug/"
+//#define IMGROOT "http://127.0.0.1/~doug/"
+//#define CGIROOT "http://127.0.0.1/~doug/"
+
+//#define IMGROOT "https://mainframe.goodall.com/~doug/"
+//#define CGIROOT "https://mainframe.goodall.com/~doug/"
+
+#define IMGROOT "http://daphne.goodall.com/~doug/"
+#define CGIROOT "http://daphne.goodall.com/~doug/"
+
+enum {
+    Reset = '0',
+    Step,
+    Run,
+    Stop
+};
 
 mwcgi::mwcgi() {
     //printf("%s", __PRETTY_FUNCTION__);
-    cgishared * pShared = new cgishared();
+    m_pShared = new cgishared();
 //    if (UNIVERSAL_ANSWER == pShared->m_pShMem->iSignature) {
 //        std::cout << "<p>established addressability to shared region"
 //                  << std::endl;
 //    }
 
+    //pShared->m_pShMem->pVPA = new vpa();
+    //std::cout << pShared->m_pShMem->pVPA.
     generate();
 
     char szQueryString[BUFSIZ];
@@ -28,16 +44,16 @@ mwcgi::mwcgi() {
         if(0 < m_query_string.length()) {
             strcpy(szQueryString,p);
             switch(szQueryString[5]) {
-                case '0':
+                case Reset:
                     reset();
                     break;
-                case '1':
+                case Step:
                     step();
                     break;
-                case '2':
+                case Run:
                     run();
                     break;
-                case '3':
+                case Stop:
                     stop();
                     break;
             }
@@ -89,12 +105,39 @@ mwcgi::mwcgi() {
      m_pHTML->open_body();
      m_pHTML->imgsrc((char *)IMGROOT "my-logo.png");
      m_pHTML->para();
-     m_pHTML->print("<h1>");
-     m_pHTML->ahref( (char *)CGIROOT "mwcgi.cgi?func=0",(char *)"Reset");
-     m_pHTML->ahref( (char *)CGIROOT "mwcgi.cgi?func=1",(char *)"Step");
-     m_pHTML->ahref( (char *)CGIROOT "mwcgi.cgi?func=2",(char *)"Run");
-     m_pHTML->ahref( (char *)CGIROOT "mwcgi.cgi?func=3",(char *)"Stop");
-     m_pHTML->print("</h1>");
+
+     m_pHTML->open_table(1);
+
+     printf("<tr><th>  </th>");
+     for(int col=0;col<16;col++) {
+         printf("<th>%2X</th>",col);
+     }
+     printf("</tr>");
+
+     for(int row=0;row<16;row++) {
+
+
+        printf("<tr><th>%2X</th>",row);
+        for(int col=0;col<16;col++) {
+            int byte = m_pShared->m_pShMem->iIntegers[(row*16)+col];
+            if(1 & byte) {
+                printf("<td><b>%02X</b></td>",byte);
+            } else {
+                printf("<td>%02X</td>",byte);
+
+            }
+        }
+        printf("</tr>");
+     }
+
+
+     m_pHTML->para();
+     m_pHTML->print((char *)"<h1>");
+     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=0",(char *)"Reset");
+     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=1",(char *)"Step");
+     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=2",(char *)"Run");
+     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=3",(char *)"Stop");
+     m_pHTML->print((char *)"</h1>");
      m_pHTML->para();
      //std::cout << "<p>m_query_string is " << m_query_string << std::endl;
      m_pHTML->close_body();

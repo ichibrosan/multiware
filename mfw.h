@@ -23,17 +23,18 @@
 // #define DEMO_OVERLOADED_FUNCTION
 // #define DISPLAY_METAINFO
 //#define DUMP_SHARED_CONTENTS
-//#define RANDOMIZE_SHARED_REGION
+#define RANDOMIZE_SHARED_REGION
 //#define FORKPROC_ENABLED
 
 #include "location.h"
 #include "environment.h"
+#include "forkproc.h"
 #include "shared.h"
 #include "html.h"
 #include "metainfo.h"
 #include "termbind.h"
 
-#include "forkproc.h"
+
 #include "global.h"
 #include "local.h"
 

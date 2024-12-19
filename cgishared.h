@@ -33,29 +33,7 @@ public:
     static void decode_shmat_errno(int);
     ~cgishared();
 
-    /**
-      * If you change the MFW_SHMEM_T structure, you must reboot
-      * Linux before running the program again. This gets rid of
-      * the existing shared segment with old schema/length.
-      */
-    struct  MFW_SHMEM_T {
-        int     iSignature;
-        char    szIdent[256];
-
-        // SHM DEMO DATA
-        bool    bBooleans[256];
-        int     iIntegers[256];
-        double  dDoubles[256];
-
-        // forkproc data
-        struct FORKPROC_DATA_T {
-            forkproc_control_t control;
-            bool bRunning;
-        } forkproc;
-
-
-
-    } * m_pShMem;
+#include "shmem.h"
 
 };
 

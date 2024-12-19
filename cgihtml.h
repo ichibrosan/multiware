@@ -23,6 +23,8 @@ public:
     void imgsrc(char *);
     void para();
     void print(char *);
+    void open_table(int border);
+    void close_table();
     void close_body();
     ~cgihtml();
 };

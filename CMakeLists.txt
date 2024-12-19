@@ -23,7 +23,7 @@ set(CMAKE_CXX_FLAGS_DEBUG   "-fpermissive")
 # I will still have to use explicit includes
 ############################################
 
-find_library(CGICC_LIB cgicc REQUIRED)
+#find_library(CGICC_LIB cgicc REQUIRED)
 
 
 add_library(mfw STATIC
@@ -42,6 +42,9 @@ add_library(mfw STATIC
         ascii.h
         forkproc.cpp
         forkproc.h
+        shmem.h
+        vpa.cpp
+        vpa.h
 )
 
 add_executable(multiware main.cpp
@@ -59,5 +62,8 @@ add_executable(mwcgi.cgi mwcgi.cpp
         cgishared.h
         cgihtml.cpp
         cgihtml.h
+        shmem.h
+        vpa.cpp
+        vpa.h
 )
 #target_link_libraries(mwcgi.cgi ${CGICC_LIB})
