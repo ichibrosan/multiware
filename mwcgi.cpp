@@ -158,15 +158,15 @@ void mwcgi::generate()
      }
 
      if(m_pShared->m_pShMem->bBoldOdd) {
-         printf("<p>bBoldOdd is true");
+         printf(", bBoldOdd is true");
      } else {
-         printf("<p>bBoldOdd is false");
+         printf(", bBoldOdd is false");
      }
 
      if(m_pShared->m_pShMem->forkproc.bRunning) {
-         printf("<p>bRunning is true");
+         printf(", bRunning is true");
      } else {
-         printf("<p>bRunning is false");
+         printf(", bRunning is false");
      }
 
 
