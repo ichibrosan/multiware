@@ -111,60 +111,38 @@ mwcgi::mwcgi()
     m_pShared->m_pShMem->bKeypad   = false;
     m_pShared->m_pShMem->bBoldEven = false;
     m_pShared->m_pShMem->bBoldOdd  = false;
-
+    m_pShared->m_pShMem->bIntegers = false;
  }
 
  void mwcgi::step()
  {
-//     printf("<p>%s",__PRETTY_FUNCTION__ );
-     m_pHTML->para();
-     m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
-
  }
 
  void mwcgi::run()
  {
-//     printf("<p>%s",__PRETTY_FUNCTION__ );
-     m_pHTML->para();
-     m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
      m_pShared->m_pShMem->forkproc.bRunning = true;
  }
 
 void mwcgi::stop()
 {
-//    printf("<p>%s",__PRETTY_FUNCTION__ );
-//    m_pHTML->para();
-//    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
     m_pShared->m_pShMem->forkproc.bRunning = false;
-
 }
 
 void mwcgi::bold_even()
 {
-//    printf("<p>%s",__PRETTY_FUNCTION__ );
-//    m_pHTML->para();
-//    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
     m_pShared->m_pShMem->bBoldEven = true;
     m_pShared->m_pShMem->bBoldOdd  = false;
 
 }
 void mwcgi::bold_odd()
 {
-//    printf("<p>%s",__PRETTY_FUNCTION__ );
-//    m_pHTML->para();
-//    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
     m_pShared->m_pShMem->bBoldEven = false;
     m_pShared->m_pShMem->bBoldOdd  = true;
-
 }
 void mwcgi::bold_none()
 {
-//    printf("<p>%s",__PRETTY_FUNCTION__ );
-//    m_pHTML->para();
-//    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
     m_pShared->m_pShMem->bBoldEven = false;
     m_pShared->m_pShMem->bBoldOdd  = false;
-
 }
 
 void mwcgi::keypad()
@@ -287,12 +265,6 @@ void mwcgi::generate()
 
      m_pHTML->para();
 
-//     printf("m_pShared->m_pShMem->szPin        is %s",
-//            m_pShared->m_pShMem->szPin);
-//     m_pHTML->para();
-//     printf("m_pShared->m_pShMem->szKeypadData is %s",
-//            m_pShared->m_pShMem->szKeypadData);
-
     if(m_pShared->m_pShMem->bKeypad) {
         gen_keypad();
     }
@@ -345,11 +317,11 @@ void mwcgi::generate()
     m_pHTML->para();
     m_pHTML->print((char *)"<h3>");
     m_pHTML->ahref((char *)CGIROOT CGI FUNC RESET,(char *)"Reset");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC STEP,(char *)"Step");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC RUN,(char *)"Run");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC STOP,(char *)"Stop");
 
     if(m_pShared->m_pShMem->bIntegers) {
+        m_pHTML->ahref((char *)CGIROOT CGI FUNC STEP,(char *)"Step");
+        m_pHTML->ahref((char *)CGIROOT CGI FUNC RUN,(char *)"Run");
+        m_pHTML->ahref((char *)CGIROOT CGI FUNC STOP,(char *)"Stop");
         m_pHTML->ahref((char *)
            CGIROOT CGI FUNC BOLDEVEN, (char *) "BoldEven");
         m_pHTML->ahref((char *)
@@ -397,6 +369,7 @@ void mwcgi::generate()
      printf("</td><td>");
      m_pHTML->ahref((char *)CGIROOT CGI FUNC POUND,(char *)"#");
     printf("</td></tr>");
+    printf("<table><tr><td>%s</td></tr></table>",m_pShared->m_pShMem->szKeypadData);
     m_pHTML->close_table();
  }
 
