@@ -26,6 +26,7 @@ struct  MFW_SHMEM_T {
     bool    bBoldEven;
     bool    bBoldOdd;
 
+    bool    bKeypad;
     char    szKeypadData[BUFSIZ];
     char    szPin[BUFSIZ];
 

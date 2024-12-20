@@ -37,6 +37,7 @@ public:
     void star();
     void zero();
     void ppound();
+    void keypad();
 };
 
 

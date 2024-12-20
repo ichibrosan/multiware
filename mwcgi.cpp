@@ -22,7 +22,8 @@
 
 enum {
     Reset,Step,Run,Stop,BoldEven,BoldOdd,BoldNone,
-    One,Two,Three,Four,Five,Six,Seven,Eight,Nine,Star,Zero,Pound
+    One,Two,Three,Four,Five,Six,Seven,Eight,Nine,Star,Zero,Pound,
+    Keypad
 };
 
 #define RESET    "0"
@@ -44,6 +45,7 @@ enum {
 #define STAR     "16"
 #define ZERO     "17"
 #define POUND    "18"
+#define KEYPAD   "19"
 
 mwcgi::mwcgi()
 {
@@ -93,7 +95,8 @@ mwcgi::mwcgi()
                 case Nine:      nine();         break;
                 case Star:      star();         break;
                 case Zero:      zero();         break;
-                case Pound:     ppound();        break;
+                case Pound:     ppound();       break;
+                case Keypad:    keypad();       break;
             }
         }
     }
@@ -103,9 +106,10 @@ mwcgi::mwcgi()
 
  void mwcgi::reset()
  {
-//    printf("<p>%s",__PRETTY_FUNCTION__ );
-    m_pHTML->para();
-    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
+    m_pShared->m_pShMem->bKeypad   = false;
+    m_pShared->m_pShMem->bBoldEven = false;
+    m_pShared->m_pShMem->bBoldOdd  = false;
+
  }
 
  void mwcgi::step()
@@ -159,6 +163,15 @@ void mwcgi::bold_none()
     m_pShared->m_pShMem->bBoldEven = false;
     m_pShared->m_pShMem->bBoldOdd  = false;
 
+}
+
+void mwcgi::keypad()
+{
+    if(m_pShared->m_pShMem->bKeypad) {
+        m_pShared->m_pShMem->bKeypad = false;
+    } else {
+        m_pShared->m_pShMem->bKeypad = true;
+    }
 }
 
 void mwcgi::one()
@@ -269,25 +282,27 @@ void mwcgi::generate()
 //     printf("m_pShared->m_pShMem->szKeypadData is %s",
 //            m_pShared->m_pShMem->szKeypadData);
 
-     gen_keypad();
+    if(m_pShared->m_pShMem->bKeypad) {
+        gen_keypad();
+    }
 
-     if(m_pShared->m_pShMem->bBoldEven) {
-         printf("<p>bBoldEven is true");
-     } else {
-         printf("<p>bBoldEven is false");
-     }
-
-     if(m_pShared->m_pShMem->bBoldOdd) {
-         printf(", bBoldOdd is true");
-     } else {
-         printf(", bBoldOdd is false");
-     }
-
-     if(m_pShared->m_pShMem->forkproc.bRunning) {
-         printf(", bRunning is true");
-     } else {
-         printf(", bRunning is false");
-     }
+//    if(m_pShared->m_pShMem->bBoldEven) {
+//         printf("<p>bBoldEven is true");
+//    } else {
+//         printf("<p>bBoldEven is false");
+//    }
+//
+//    if(m_pShared->m_pShMem->bBoldOdd) {
+//         printf(", bBoldOdd is true");
+//    } else {
+//         printf(", bBoldOdd is false");
+//    }
+//
+//    if(m_pShared->m_pShMem->forkproc.bRunning) {
+//         printf(", bRunning is true");
+//    } else {
+//         printf(", bRunning is false");
+//    }
 
 
      m_pHTML->para();
@@ -342,10 +357,12 @@ void mwcgi::generate()
      m_pHTML->ahref((char *)CGIROOT CGI FUNC BOLDEVEN,(char *)"BoldEven");
      m_pHTML->ahref((char *)CGIROOT CGI FUNC BOLDODD,(char *)"BoldOdd");
      m_pHTML->ahref((char *)CGIROOT CGI FUNC BOLDNONE,(char *)"BoldNone");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC KEYPAD,(char *)"Keypad");
 
-     m_pHTML->print((char *)"</h3>");
+
+    m_pHTML->print((char *)"</h3>");
      m_pHTML->para();
-     std::cout << "<p>m_query_string is " << m_query_string << std::endl;
+     //std::cout << "<p>m_query_string is " << m_query_string << std::endl;
      m_pHTML->close_body();
 
  }

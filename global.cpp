@@ -24,6 +24,7 @@ global::global()
 
     pShared->m_pShMem->bBoldEven = false;
     pShared->m_pShMem->bBoldOdd  = false;
+    pShared->m_pShMem->bKeypad   = false;
     pShared->m_pShMem->forkproc.bRunning = true;
 
     //pLoc       = new location();
