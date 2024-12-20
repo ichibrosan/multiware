@@ -13,7 +13,7 @@ html::html(char * szFQFS)
     fprintf(m_fd,"<html>\n");
 }
 
-void html::ahref(char *szURL,char * szVisible)
+void html::ahref(char * szURL,char * szVisible)
 {
     fprintf(m_fd,"        <a href=\"%s\">%s</a>\n",szURL,szVisible);
 }
