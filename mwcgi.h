@@ -22,7 +22,21 @@ public:
     void bold_odd();
     void bold_none();
     char * get_userdir();
+    void gen_keypad();
+    void clear_keypad();
     void generate();
+    void one();
+    void two();
+    void three();
+    void four();
+    void five();
+    void six();
+    void seven();
+    void eight();
+    void nine();
+    void star();
+    void zero();
+    void ppound();
 };
 
 

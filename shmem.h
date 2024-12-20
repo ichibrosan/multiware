@@ -5,6 +5,7 @@
 #ifndef MULTIWARE_SHMEM_H
 #define MULTIWARE_SHMEM_H
 
+#include <stdio.h>
 #include "forkproc.h"
 #include "vpa.h"
 
@@ -25,6 +26,8 @@ struct  MFW_SHMEM_T {
     bool    bBoldEven;
     bool    bBoldOdd;
 
+    char    szKeypadData[BUFSIZ];
+    char    szPin[BUFSIZ];
 
     // forkproc data
     struct FORKPROC_DATA_T {

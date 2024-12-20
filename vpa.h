@@ -7,7 +7,8 @@
 
 
 class vpa {
-    int m_vpa_port;
+    int              m_vpa_port;
+    struct servent * m_pServent;
 public:
     vpa();
     int get_vpa_port();

@@ -17,18 +17,39 @@
 
 #define IMGROOT "http://daphne.goodall.com/~doug/"
 #define CGIROOT "http://daphne.goodall.com/~doug/"
+#define CGI     "mwcgi.cgi"
+#define FUNC    "?func="
 
 enum {
-    Reset = '0',
-    Step,
-    Run,
-    Stop,
-    BoldEven,
-    BoldOdd,
-    BoldNone
+    Reset,Step,Run,Stop,BoldEven,BoldOdd,BoldNone,
+    One,Two,Three,Four,Five,Six,Seven,Eight,Nine,Star,Zero,Pound
 };
 
-mwcgi::mwcgi() {
+#define RESET    "0"
+#define STEP     "1"
+#define RUN      "2"
+#define STOP     "3"
+#define BOLDEVEN "4"
+#define BOLDODD  "5"
+#define BOLDNONE "6"
+#define ONE      "7"
+#define TWO      "8"
+#define THREE    "9"
+#define FOUR     "10"
+#define FIVE     "11"
+#define SIX      "12"
+#define SEVEN    "13"
+#define EIGHT    "14"
+#define NINE     "15"
+#define STAR     "16"
+#define ZERO     "17"
+#define POUND    "18"
+
+mwcgi::mwcgi()
+{
+    char szQueryString[BUFSIZ];
+    char szFunctionNum[BUFSIZ];
+
     m_pShared = new cgishared();
 
 //    if (UNIVERSAL_ANSWER == pShared->m_pShMem->iSignature) {
@@ -36,7 +57,6 @@ mwcgi::mwcgi() {
 //                  << std::endl;
 //    }
 
-    char szQueryString[BUFSIZ];
     char * psz = getenv("QUERY_STRING");
     if(nullptr != psz) {
 
@@ -51,31 +71,29 @@ mwcgi::mwcgi() {
             // 0123456789
             // func=2
             //      ^
-            // extract the character determining the function number
-            char  cFunction = szQueryString[5];
-
-            switch(cFunction) {
-                case Reset:
-                    reset();
-                    break;
-                case Step:
-                    step();
-                    break;
-                case Run:
-                    run();
-                    break;
-                case Stop:
-                    stop();
-                    break;
-                case BoldEven:
-                    bold_even();
-                    break;
-                case BoldOdd:
-                    bold_odd();
-                    break;
-                case BoldNone:
-                    bold_none();
-                    break;
+            // extract the character string determining the function number
+            strncpy(szFunctionNum,&szQueryString[5],3);
+            int iFunction = atoi(szFunctionNum);
+            switch(iFunction) {
+                case Reset:     reset();        break;
+                case Step:      step();         break;
+                case Run:       run();          break;
+                case Stop:      stop();         break;
+                case BoldEven:  bold_even();    break;
+                case BoldOdd:   bold_odd();     break;
+                case BoldNone:  bold_none();    break;
+                case One:       one();          break;
+                case Two:       two();          break;
+                case Three:     three();        break;
+                case Four:      four();         break;
+                case Five:      five();         break;
+                case Six:       six();          break;
+                case Seven:     seven();        break;
+                case Eight:     eight();        break;
+                case Nine:      nine();         break;
+                case Star:      star();         break;
+                case Zero:      zero();         break;
+                case Pound:     ppound();        break;
             }
         }
     }
@@ -84,13 +102,15 @@ mwcgi::mwcgi() {
 }
 
  void mwcgi::reset()
- {  printf("Hello World\n ");
+ {
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
     m_pHTML->para();
     m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
  }
 
  void mwcgi::step()
  {
+//     printf("<p>%s",__PRETTY_FUNCTION__ );
      m_pHTML->para();
      m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
 
@@ -98,6 +118,7 @@ mwcgi::mwcgi() {
 
  void mwcgi::run()
  {
+//     printf("<p>%s",__PRETTY_FUNCTION__ );
      m_pHTML->para();
      m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
      m_pShared->m_pShMem->forkproc.bRunning = true;
@@ -105,37 +126,130 @@ mwcgi::mwcgi() {
 
 void mwcgi::stop()
 {
-    m_pHTML->para();
-    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+//    m_pHTML->para();
+//    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
     m_pShared->m_pShMem->forkproc.bRunning = false;
 
 }
 
 void mwcgi::bold_even()
 {
-    m_pHTML->para();
-    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+//    m_pHTML->para();
+//    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
     m_pShared->m_pShMem->bBoldEven = true;
     m_pShared->m_pShMem->bBoldOdd  = false;
 
 }
 void mwcgi::bold_odd()
 {
-    m_pHTML->para();
-    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+//    m_pHTML->para();
+//    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
     m_pShared->m_pShMem->bBoldEven = false;
     m_pShared->m_pShMem->bBoldOdd  = true;
 
 }
 void mwcgi::bold_none()
 {
-    m_pHTML->para();
-    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+//    m_pHTML->para();
+//    m_pHTML->print(const_cast<char *>(__PRETTY_FUNCTION__));
     m_pShared->m_pShMem->bBoldEven = false;
     m_pShared->m_pShMem->bBoldOdd  = false;
 
 }
 
+void mwcgi::one()
+{
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+    strcat(m_pShared->m_pShMem->szKeypadData,"1");
+}
+
+void mwcgi::two()
+{
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+    strcat(m_pShared->m_pShMem->szKeypadData,"2");
+}
+
+void mwcgi::three()
+{
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+    strcat(m_pShared->m_pShMem->szKeypadData,"3");
+
+}
+
+void mwcgi::four()
+{
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+    strcat(m_pShared->m_pShMem->szKeypadData,"4");
+
+}
+
+void mwcgi::five()
+{
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+    strcat(m_pShared->m_pShMem->szKeypadData,"5");
+
+}
+
+void mwcgi::six()
+{
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+    strcat(m_pShared->m_pShMem->szKeypadData,"6");
+
+}
+
+void mwcgi::seven()
+{
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+    strcat(m_pShared->m_pShMem->szKeypadData,"7");
+
+}
+
+void mwcgi::eight()
+{
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+    strcat(m_pShared->m_pShMem->szKeypadData,"8");
+
+}
+
+void mwcgi::nine()
+{
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+    strcat(m_pShared->m_pShMem->szKeypadData,"9");
+
+}
+
+void mwcgi::star()
+{
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+    memset(m_pShared->m_pShMem->szKeypadData,0,BUFSIZ);
+    memset(m_pShared->m_pShMem->szPin,0,BUFSIZ);
+
+}
+
+void mwcgi::zero()
+{
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+    strcat(m_pShared->m_pShMem->szKeypadData,"0");
+
+}
+
+void mwcgi::ppound()
+{
+//    printf("<p>%s",__PRETTY_FUNCTION__ );
+    strcpy(m_pShared->m_pShMem->szPin,
+           m_pShared->m_pShMem->szKeypadData);
+
+}
+
+void mwcgi::clear_keypad()
+{
+    memset(m_pShared->m_pShMem->szPin,       0,BUFSIZ);
+    memset(m_pShared->m_pShMem->szKeypadData,0,BUFSIZ);
+}
 
 
 void mwcgi::generate()
@@ -146,7 +260,16 @@ void mwcgi::generate()
      m_pHTML->close_head();
      m_pHTML->open_body();
      m_pHTML->imgsrc((char *)IMGROOT "my-logo.png");
+
      m_pHTML->para();
+
+//     printf("m_pShared->m_pShMem->szPin        is %s",
+//            m_pShared->m_pShMem->szPin);
+//     m_pHTML->para();
+//     printf("m_pShared->m_pShMem->szKeypadData is %s",
+//            m_pShared->m_pShMem->szKeypadData);
+
+     gen_keypad();
 
      if(m_pShared->m_pShMem->bBoldEven) {
          printf("<p>bBoldEven is true");
@@ -212,19 +335,50 @@ void mwcgi::generate()
 
      m_pHTML->para();
      m_pHTML->print((char *)"<h3>");
-     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=0",(char *)"Reset");
-     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=1",(char *)"Step");
-     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=2",(char *)"Run");
-     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=3",(char *)"Stop");
-     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=4",(char *)"BoldEven");
-     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=5",(char *)"BoldOdd");
-     m_pHTML->ahref((char *)CGIROOT "mwcgi.cgi?func=6",(char *)"BoldNone");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC RESET,(char *)"Reset");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC STEP,(char *)"Step");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC RUN,(char *)"Run");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC STOP,(char *)"Stop");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC BOLDEVEN,(char *)"BoldEven");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC BOLDODD,(char *)"BoldOdd");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC BOLDNONE,(char *)"BoldNone");
 
      m_pHTML->print((char *)"</h3>");
      m_pHTML->para();
-     //std::cout << "<p>m_query_string is " << m_query_string << std::endl;
+     std::cout << "<p>m_query_string is " << m_query_string << std::endl;
      m_pHTML->close_body();
 
+ }
+
+ void mwcgi::gen_keypad()
+ {
+    m_pHTML->open_table((2));
+    printf("<tr><td>");
+    m_pHTML->ahref((char *)CGIROOT CGI FUNC ONE,(char *)"1");
+    printf("</td><td>");
+    m_pHTML->ahref((char *)CGIROOT CGI FUNC TWO,(char *)"2");
+     printf("</td><td>");
+    m_pHTML->ahref((char *)CGIROOT CGI FUNC THREE,(char *)"3");
+    printf("</tr><tr><td>");
+    m_pHTML->ahref((char *)CGIROOT CGI FUNC FOUR,(char *)"4");
+     printf("</td><td>");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC FIVE,(char *)"5");
+     printf("</td><td>");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC SIX,(char *)"6");
+    printf("</tr><tr><td>");
+    m_pHTML->ahref((char *)CGIROOT CGI FUNC SEVEN,(char *)"7");
+     printf("</td><td>");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC EIGHT,(char *)"8");
+     printf("</td><td>");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC NINE,(char *)"9");
+    printf("</tr><tr><td>");
+    m_pHTML->ahref((char *)CGIROOT CGI FUNC STAR,(char *)"*");
+     printf("</td><td>");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC ZERO,(char *)"0");
+     printf("</td><td>");
+     m_pHTML->ahref((char *)CGIROOT CGI FUNC POUND,(char *)"#");
+    printf("</td></tr>");
+    m_pHTML->close_table();
  }
 
  char * mwcgi::get_userdir()
