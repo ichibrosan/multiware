@@ -369,7 +369,8 @@ void mwcgi::generate()
      printf("</td><td>");
      m_pHTML->ahref((char *)CGIROOT CGI FUNC POUND,(char *)"#");
     printf("</td></tr>");
-    printf("<table><tr><td>%s</td></tr></table>",m_pShared->m_pShMem->szKeypadData);
+    printf("<table><tr><td>%s</td></tr></table>",
+           m_pShared->m_pShMem->szKeypadData);
     m_pHTML->close_table();
  }
 
