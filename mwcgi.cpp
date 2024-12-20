@@ -23,7 +23,7 @@
 enum {
     Reset,Step,Run,Stop,BoldEven,BoldOdd,BoldNone,
     One,Two,Three,Four,Five,Six,Seven,Eight,Nine,Star,Zero,Pound,
-    Keypad
+    Keypad,Integers
 };
 
 #define RESET    "0"
@@ -46,6 +46,7 @@ enum {
 #define ZERO     "17"
 #define POUND    "18"
 #define KEYPAD   "19"
+#define INTEGERS "20"
 
 mwcgi::mwcgi()
 {
@@ -97,6 +98,7 @@ mwcgi::mwcgi()
                 case Zero:      zero();         break;
                 case Pound:     ppound();       break;
                 case Keypad:    keypad();       break;
+                case Integers:  integers();     break;
             }
         }
     }
@@ -264,6 +266,15 @@ void mwcgi::clear_keypad()
     memset(m_pShared->m_pShMem->szKeypadData,0,BUFSIZ);
 }
 
+void mwcgi::integers()
+{
+    if(m_pShared->m_pShMem->bIntegers) {
+        m_pShared->m_pShMem->bIntegers = false;
+    } else {
+        m_pShared->m_pShMem->bIntegers = true;
+    }
+
+}
 
 void mwcgi::generate()
  {
@@ -272,7 +283,7 @@ void mwcgi::generate()
      m_pHTML->title((char *)__FILE__);
      m_pHTML->close_head();
      m_pHTML->open_body();
-     m_pHTML->imgsrc((char *)IMGROOT "my-logo.png");
+     m_pHTML->imgsrc((char *)IMGROOT "my-logo.png",250,150);
 
      m_pHTML->para();
 
@@ -286,78 +297,69 @@ void mwcgi::generate()
         gen_keypad();
     }
 
-//    if(m_pShared->m_pShMem->bBoldEven) {
-//         printf("<p>bBoldEven is true");
-//    } else {
-//         printf("<p>bBoldEven is false");
-//    }
-//
-//    if(m_pShared->m_pShMem->bBoldOdd) {
-//         printf(", bBoldOdd is true");
-//    } else {
-//         printf(", bBoldOdd is false");
-//    }
-//
-//    if(m_pShared->m_pShMem->forkproc.bRunning) {
-//         printf(", bRunning is true");
-//    } else {
-//         printf(", bRunning is false");
-//    }
-
-
      m_pHTML->para();
 
-     m_pHTML->open_table(3);
+    if(m_pShared->m_pShMem->bIntegers) {
+        m_pHTML->open_table(3);
 
-     // label the rows
-     printf("<tr><th> + </th>");
-     for(int col=0;col<16;col++) {
-         printf("<th>%2X</th>",col);
-     }
-     printf("</tr>");
-
-     for(int row=0;row<16;row++) {
-
-        // label the row
-        printf("<tr><th>%02X</th>",row*16);
-
-        // display each column of the current row
-        for(int col=0;col<16;col++) {
-            int byte = m_pShared->m_pShMem->iIntegers[(row*16)+col];
-
-            // odd values are bolded
-            if(1 & byte) {
-                // low order bit was 1
-                if(m_pShared->m_pShMem->bBoldOdd) {
-                    printf("<td><b>%02X</b></td>", byte);
-                } else {
-                    printf("<td>%02X</td>", byte);
-
-                }
-            } else {
-                // low order bit was 0
-                if(m_pShared->m_pShMem->bBoldEven) {
-                    printf("<td><b>%02X</b></td>", byte);
-                } else {
-                    printf("<td>%02X</td>", byte);
-
-                }
-
-            }
+        // label the rows
+        printf("<tr><th> + </th>");
+        for (int col = 0; col < 16; col++) {
+            printf("<th>%2X</th>", col);
         }
         printf("</tr>");
-     }
 
-     m_pHTML->para();
-     m_pHTML->print((char *)"<h3>");
-     m_pHTML->ahref((char *)CGIROOT CGI FUNC RESET,(char *)"Reset");
-     m_pHTML->ahref((char *)CGIROOT CGI FUNC STEP,(char *)"Step");
-     m_pHTML->ahref((char *)CGIROOT CGI FUNC RUN,(char *)"Run");
-     m_pHTML->ahref((char *)CGIROOT CGI FUNC STOP,(char *)"Stop");
-     m_pHTML->ahref((char *)CGIROOT CGI FUNC BOLDEVEN,(char *)"BoldEven");
-     m_pHTML->ahref((char *)CGIROOT CGI FUNC BOLDODD,(char *)"BoldOdd");
-     m_pHTML->ahref((char *)CGIROOT CGI FUNC BOLDNONE,(char *)"BoldNone");
-     m_pHTML->ahref((char *)CGIROOT CGI FUNC KEYPAD,(char *)"Keypad");
+        for (int row = 0; row < 16; row++) {
+
+            // label the row
+            printf("<tr><th>%02X</th>", row * 16);
+
+            // display each column of the current row
+            for (int col = 0; col < 16; col++) {
+                int byte = m_pShared->m_pShMem->iIntegers[(row * 16) + col];
+
+                // odd values are bolded
+                if (1 & byte) {
+                    // low order bit was 1
+                    if (m_pShared->m_pShMem->bBoldOdd) {
+                        printf("<td><b>%02X</b></td>", byte);
+                    } else {
+                        printf("<td>%02X</td>", byte);
+
+                    }
+                } else {
+                    // low order bit was 0
+                    if (m_pShared->m_pShMem->bBoldEven) {
+                        printf("<td><b>%02X</b></td>", byte);
+                    } else {
+                        printf("<td>%02X</td>", byte);
+
+                    }
+
+                }
+            }
+            printf("</tr>");
+        }
+    }
+
+    m_pHTML->para();
+    m_pHTML->print((char *)"<h3>");
+    m_pHTML->ahref((char *)CGIROOT CGI FUNC RESET,(char *)"Reset");
+    m_pHTML->ahref((char *)CGIROOT CGI FUNC STEP,(char *)"Step");
+    m_pHTML->ahref((char *)CGIROOT CGI FUNC RUN,(char *)"Run");
+    m_pHTML->ahref((char *)CGIROOT CGI FUNC STOP,(char *)"Stop");
+
+    if(m_pShared->m_pShMem->bIntegers) {
+        m_pHTML->ahref((char *)
+           CGIROOT CGI FUNC BOLDEVEN, (char *) "BoldEven");
+        m_pHTML->ahref((char *)
+           CGIROOT CGI FUNC BOLDODD, (char *) "BoldOdd");
+        m_pHTML->ahref((char *)
+           CGIROOT CGI FUNC BOLDNONE, (char *) "BoldNone");
+    }
+
+    m_pHTML->ahref((char *)CGIROOT CGI FUNC KEYPAD,(char *)"Keypad");
+    m_pHTML->ahref((char *)CGIROOT CGI FUNC INTEGERS,(char *)"Integers");
 
 
     m_pHTML->print((char *)"</h3>");

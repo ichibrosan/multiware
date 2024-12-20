@@ -22,7 +22,7 @@ public:
     void title(char *);
     void close_head();
     void open_body();
-    void imgsrc(char *);
+    void imgsrc(char *,int,int);
     void para();
     void print(char *);
     void open_table(int border);

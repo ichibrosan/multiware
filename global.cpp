@@ -22,6 +22,7 @@ global::global()
     pHtml      = new html((char *)"global.html");
     pShared    = new shared();
 
+    pShared->m_pShMem->bIntegers = false;
     pShared->m_pShMem->bBoldEven = false;
     pShared->m_pShMem->bBoldOdd  = false;
     pShared->m_pShMem->bKeypad   = false;

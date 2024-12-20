@@ -38,6 +38,7 @@ public:
     void zero();
     void ppound();
     void keypad();
+    void integers();
 };
 
 

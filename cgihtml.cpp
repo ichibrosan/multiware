@@ -12,12 +12,12 @@ cgihtml::cgihtml()
 
 void cgihtml::open_style()
 {
-    print("<style>");
+    print((char *)"<style>");
 }
 
 void cgihtml::close_style()
 {
-    print("</style>");
+    print((char *)"</style>");
 }
 
 void cgihtml::open_table(int border)
@@ -57,9 +57,12 @@ void cgihtml::open_body()
     printf("  <body>\n");
 }
 
-void cgihtml::imgsrc(char * szURL)
+void cgihtml::imgsrc(char * szURL,int width,int height)
 {
-    printf("      <img src=\"%s\" width=\"500\" height=\"300\">\n",szURL);
+    char szTag[FILENAME_MAX];
+    sprintf(szTag,"<img src=\"%s\" width=\"%d\" height=\"%d\">\n",
+            szURL,width,height);
+    print(szTag);
 }
 
 void cgihtml::para()

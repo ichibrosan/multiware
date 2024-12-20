@@ -23,6 +23,7 @@ struct  MFW_SHMEM_T {
     int     iIntegers[256];
     double  dDoubles[256];
 
+    bool    bIntegers;
     bool    bBoldEven;
     bool    bBoldOdd;
 
