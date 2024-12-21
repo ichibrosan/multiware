@@ -207,7 +207,7 @@ std::string mfw::get_date_and_time()
                 stdstrName.c_str());
     }
 
-    mfw::log((const char *)szBuffer);
+    mfw::log(szBuffer);
 }
 
 
@@ -221,7 +221,7 @@ void mfw::print(const std::string& stdstrName,double dValue)
     char szBuffer[BUFSIZ];
     sprintf(szBuffer,"Double Variable %s is %g",
             stdstrName.c_str(),dValue);
-    mfw::log((const char *)szBuffer);
+    mfw::log(szBuffer);
 }
 
 

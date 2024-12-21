@@ -15,16 +15,16 @@ class cgihtml {
     char m_page[BUFSIZ];
 public:
     cgihtml();
-    void ahref(char *,char *);
+    void ahref(const char *,const char *);
     void open_head();
     void open_style();
     void close_style();
-    void title(char *);
+    void title(const char *);
     void close_head();
     void open_body();
-    void imgsrc(char *,int,int);
+    void imgsrc(const char *,int,int);
     void para();
-    void print(char *);
+    void print(const char *);
     void open_table(int border);
     void close_table();
     void close_body();

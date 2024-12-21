@@ -16,14 +16,14 @@ class html {
     FILE * m_fd;
     char szFQFS[FILENAME_MAX];
 public:
-    html(char * szPQFS);
-    void ahref(char *,char *);
+    html(const char * szPQFS);
+    void ahref(const char *,const char *);
     void open_head();
-    void title(char *);
+    void title(const char *);
     void close_head();
     void open_body();
-    void imgsrc(char *);
-    void print(char *);
+    void imgsrc(const char *);
+    void print(const char *);
     void close_body();
     ~html();
 };

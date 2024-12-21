@@ -5,7 +5,7 @@
 #include "mfw.h"
 #include "html.h"
 
-html::html(char * szFQFS)
+html::html(const char * szFQFS)
 {
     //char szFQFS[BUFSIZ];
     m_fd = fopen(szFQFS,"w");
@@ -13,7 +13,7 @@ html::html(char * szFQFS)
     fprintf(m_fd,"<html>\n");
 }
 
-void html::ahref(char * szURL,char * szVisible)
+void html::ahref(const char * szURL,const char * szVisible)
 {
     fprintf(m_fd,"        <a href=\"%s\">%s</a>\n",szURL,szVisible);
 }
@@ -23,7 +23,7 @@ void html::open_head()
     fprintf(m_fd,"  <head>\n");
 }
 
-void html::title(char * szTitle)
+void html::title(const char * szTitle)
 {
     fprintf(m_fd,"      <title>\n");
     fprintf(m_fd,"          %s\n",szTitle);
@@ -40,12 +40,12 @@ void html::open_body()
     fprintf(m_fd,"  <body>\n");
 }
 
-void html::imgsrc(char * szURL)
+void html::imgsrc(const char * szURL)
 {
     fprintf(m_fd,"      <img src=\"%s\">\n",szURL);
 }
 
-void html::print(char *szText)
+void html::print(const char *szText)
 {
     fprintf(m_fd,"%s\n",szText);
 }

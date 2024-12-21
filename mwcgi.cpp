@@ -415,10 +415,10 @@ void mwcgi::generate()
 {
     m_pHTML = new cgihtml();
     m_pHTML->open_head();
-    m_pHTML->title((char *)__FILE__);
+    m_pHTML->title(__FILE__);
     m_pHTML->close_head();
     m_pHTML->open_body();
-    m_pHTML->imgsrc((char *)IMGROOT "my-logo.png",250,150);
+    m_pHTML->imgsrc(IMGROOT "my-logo.png",250,150);
 
     m_pHTML->para();
 
@@ -476,22 +476,19 @@ void mwcgi::generate()
     /**
      * Display the menu bar of command links depending on booleans
      */
-    m_pHTML->print((char *)"<h3>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC RESET,(char *)"Reset");
+    m_pHTML->print("<h3>");
+    m_pHTML->ahref(CGIROOT CGI FUNC RESET,"Reset");
     if(m_pShared->m_pShMem->bIntegers) {
-        m_pHTML->ahref((char *)CGIROOT CGI FUNC STEP,(char *)"Step");
-        m_pHTML->ahref((char *)CGIROOT CGI FUNC RUN,(char *)"Run");
-        m_pHTML->ahref((char *)CGIROOT CGI FUNC STOP,(char *)"Stop");
-        m_pHTML->ahref((char *)
-           CGIROOT CGI FUNC BOLDEVEN, (char *) "BoldEven");
-        m_pHTML->ahref((char *)
-           CGIROOT CGI FUNC BOLDODD, (char *) "BoldOdd");
-        m_pHTML->ahref((char *)
-           CGIROOT CGI FUNC BOLDNONE, (char *) "BoldNone");
+        m_pHTML->ahref(CGIROOT CGI FUNC STEP,"Step");
+        m_pHTML->ahref(CGIROOT CGI FUNC RUN,"Run");
+        m_pHTML->ahref(CGIROOT CGI FUNC STOP,"Stop");
+        m_pHTML->ahref(CGIROOT CGI FUNC BOLDEVEN,"BoldEven");
+        m_pHTML->ahref(CGIROOT CGI FUNC BOLDODD,"BoldOdd");
+        m_pHTML->ahref(CGIROOT CGI FUNC BOLDNONE,"BoldNone");
     }
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC KEYPAD,(char *)"Keypad");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC INTEGERS,(char *)"Integers");
-    m_pHTML->print((char *)"</h3>");
+    m_pHTML->ahref(CGIROOT CGI FUNC KEYPAD,"Keypad");
+    m_pHTML->ahref(CGIROOT CGI FUNC INTEGERS,"Integers");
+    m_pHTML->print("</h3>");
     m_pHTML->para();
 
     m_pHTML->close_body();
@@ -507,34 +504,34 @@ void mwcgi::gen_keypad()
     m_pHTML->print((char *)"<h3>");
     m_pHTML->open_table((2));
     printf("<tr><td>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC ONE,(char *)"1");
+    m_pHTML->ahref(CGIROOT CGI FUNC ONE,(char *)"1");
     printf("</td><td>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC TWO,(char *)"2");
+    m_pHTML->ahref(CGIROOT CGI FUNC TWO,(char *)"2");
     printf("</td><td>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC THREE,(char *)"3");
+    m_pHTML->ahref(CGIROOT CGI FUNC THREE,(char *)"3");
     printf("</tr><tr><td>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC FOUR,(char *)"4");
+    m_pHTML->ahref(CGIROOT CGI FUNC FOUR,(char *)"4");
     printf("</td><td>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC FIVE,(char *)"5");
+    m_pHTML->ahref(CGIROOT CGI FUNC FIVE,(char *)"5");
     printf("</td><td>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC SIX,(char *)"6");
+    m_pHTML->ahref(CGIROOT CGI FUNC SIX,(char *)"6");
     printf("</tr><tr><td>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC SEVEN,(char *)"7");
+    m_pHTML->ahref(CGIROOT CGI FUNC SEVEN,(char *)"7");
     printf("</td><td>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC EIGHT,(char *)"8");
+    m_pHTML->ahref(CGIROOT CGI FUNC EIGHT,(char *)"8");
     printf("</td><td>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC NINE,(char *)"9");
+    m_pHTML->ahref(CGIROOT CGI FUNC NINE,(char *)"9");
     printf("</tr><tr><td>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC STAR,(char *)"*");
+    m_pHTML->ahref(CGIROOT CGI FUNC STAR,(char *)"*");
     printf("</td><td>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC ZERO,(char *)"0");
+    m_pHTML->ahref(CGIROOT CGI FUNC ZERO,(char *)"0");
     printf("</td><td>");
-    m_pHTML->ahref((char *)CGIROOT CGI FUNC POUND,(char *)"#");
+    m_pHTML->ahref(CGIROOT CGI FUNC POUND,(char *)"#");
     printf("</td></tr>");
     printf("<table><tr><td>%s</td></tr></table>",
           m_pShared->m_pShMem->szKeypadData);
     m_pHTML->close_table();
-    m_pHTML->print((char *)"</h3>");
+    m_pHTML->print("</h3>");
 
 }
 

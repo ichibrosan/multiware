@@ -19,12 +19,12 @@ cgihtml::cgihtml()
 
 void cgihtml::open_style()
 {
-    print((char *)"<style>");
+    print("<style>");
 }
 
 void cgihtml::close_style()
 {
-    print((char *)"</style>");
+    print("</style>");
 }
 
 void cgihtml::open_table(int border)
@@ -45,7 +45,7 @@ void cgihtml::close_table()
  * @param szVisible A pointer top a null terminated string
  * containing the visible portion of the link.
  ***************************************************************/
-void cgihtml::ahref(char *szURL,char * szVisible)
+void cgihtml::ahref(const char *szURL,const char * szVisible)
 {
     printf("<a href=\"%s\">%s</a>\n",szURL,szVisible);
 }
@@ -62,7 +62,7 @@ void cgihtml::open_head()
  * @param szTitle A pointer to a null terminated string containing the
  * title of the web page.
  *********************************************************************/
-void cgihtml::title(char * szTitle)
+void cgihtml::title(const char * szTitle)
 {
     printf("      <title>\n");
     printf("          %s\n",szTitle);
@@ -92,7 +92,7 @@ void cgihtml::open_body()
  * @param width The image width in pixels
  * @param height The image height in pixels
  *******************************************************************/
-void cgihtml::imgsrc(char * szURL,int width,int height)
+void cgihtml::imgsrc(const char * szURL,int width,int height)
 {
     char szTag[FILENAME_MAX];
     sprintf(szTag,"<img "
@@ -112,7 +112,7 @@ void cgihtml::para()
     printf("<p>");
 }
 
-void cgihtml::print(char *szText)
+void cgihtml::print(const char *szText)
 {
     printf("%s\n",szText);
 }
